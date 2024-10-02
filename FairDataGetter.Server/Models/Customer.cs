@@ -6,16 +6,20 @@ namespace FairDataGetter.Server.Models {
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(42)]
         public required string FirstName { get; set; }
 
+        [Required]
         [MaxLength(42)]
         public required string LastName { get; set; }
 
+        [Required]
         [EmailAddress]
         [MaxLength(100)]
         public required string Email { get; set; }
 
-        public required string Image { get; set; }
+        [Required]
+        public required string ImagePath { get; set; }
     }
 }
