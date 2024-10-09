@@ -1,5 +1,4 @@
-﻿// Models/User.cs
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FairDataGetter.Server.Models {
     public class Customer {
@@ -21,5 +20,8 @@ namespace FairDataGetter.Server.Models {
 
         [Required]
         public required string ImagePath { get; set; }
+
+        [Required]
+        public required ICollection<ProductGroup> InterestedProductGroups { get; set; } = [];
     }
 }
