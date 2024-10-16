@@ -1,5 +1,4 @@
-﻿// Controllers/CustomersController.cs
-using FairDataGetter.Server.Data;
+﻿using FairDataGetter.Server.Data;
 using FairDataGetter.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,41 +7,59 @@ using System.ComponentModel.DataAnnotations;
 namespace FairDataGetter.Server.Controllers {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase {
-        private readonly AppDbContext _context;
-        private readonly IWebHostEnvironment _environment;
+    public class CustomersController(AppDbContext context, IWebHostEnvironment environment) : ControllerBase {
 
-        public CustomersController(AppDbContext context, IWebHostEnvironment environment) {
-            _context = context;
-            _environment = environment;
-        }
+        //public string GenerateFileName(string firstName, string lastName, string originalFileName) {
+        //    // Sanitize the names by removing special characters and making it lowercase
+        //    string sanitizedFirstName = RemoveSpecialCharacters(firstName).ToLower();
+        //    string sanitizedLastName = RemoveSpecialCharacters(lastName).ToLower();
 
-        // POST: api/Customers
+        //    // Generate a short version of a GUID (first 8 characters)
+        //    string shortGuid = Guid.NewGuid().ToString().Split('-')[0];
+
+        //    // Combine name parts with the short GUID
+        //    string fileName = $"{sanitizedFirstName}_{sanitizedLastName}_{shortGuid}";
+
+        //    // Ensure file extension from the original file name is preserved
+        //    string extension = Path.GetExtension(originalFileName);
+
+        //    // Optionally pad the file name to a specific length (e.g., 40 characters)
+        //    fileName = fileName.Length > 40 ? fileName[..40] : fileName.PadRight(40, '_');
+
+        //    // Return the final file name with the extension
+        //    return $"{fileName}{extension}";
+        //}
+
+        //private string RemoveSpecialCharacters(string str) {
+        //    return new string(str.Where(c => char.IsLetterOrDigit(c)).ToArray());
+        //}
+
         [HttpPost]
         public async Task<IActionResult> PostCustomer([FromForm] CustomerDto customerDto) {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if (customerDto.Image == null || customerDto.Image.Length == 0)
                 return BadRequest("Image is required.");
 
-            // Save image to disk
-            var uploads = Path.Combine(_environment.ContentRootPath, "uploads");
+            var uploads = Path.Combine(environment.ContentRootPath, "Uploads");
             if (!Directory.Exists(uploads))
                 Directory.CreateDirectory(uploads);
 
-            var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(customerDto.Image.FileName)}";
+            var fileName = customerDto.Image.FileName;//GenerateFileName(customerDto.FirstName, customerDto.LastName, customerDto.Image.FileName);
             var filePath = Path.Combine(uploads, fileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create)) {
                 await customerDto.Image.CopyToAsync(stream);
             }
 
-            // Handle Interested Product Groups
             var productGroupNames = customerDto.InterestedProductGroupNames
                 .Select(name => name.Trim())
                 .Where(name => !string.IsNullOrEmpty(name))
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .ToList();
 
-            var existingProductGroups = await _context.ProductGroups
+            var existingProductGroups = await context.ProductGroups
                 .Where(pg => productGroupNames.Contains(pg.Name))
                 .ToListAsync();
 
@@ -51,15 +68,13 @@ namespace FairDataGetter.Server.Controllers {
                 .Select(name => new ProductGroup { Name = name })
                 .ToList();
 
-            if (newProductGroups.Any()) {
-                _context.ProductGroups.AddRange(newProductGroups);
-                await _context.SaveChangesAsync();
+            if (newProductGroups.Count != 0) {
+                context.ProductGroups.AddRange(newProductGroups);
+                await context.SaveChangesAsync();
 
-                // Update existingProductGroups with newly added ones
                 existingProductGroups.AddRange(newProductGroups);
             }
 
-            // Associate ProductGroups with Customer
             var interestedProductGroups = existingProductGroups
                 .Where(pg => productGroupNames.Contains(pg.Name, StringComparer.OrdinalIgnoreCase))
                 .ToList();
@@ -68,20 +83,27 @@ namespace FairDataGetter.Server.Controllers {
                 FirstName = customerDto.FirstName,
                 LastName = customerDto.LastName,
                 Email = customerDto.Email,
-                ImagePath = Path.Combine("uploads", fileName),
+                ImagePath = Path.Combine("Uploads", fileName),
+                Address = customerDto.Address,
                 InterestedProductGroups = interestedProductGroups
             };
 
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+            context.Customers.Add(customer);
+            await context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer);
         }
 
-        // GET: api/Customers/5
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers() {
+            return await context.Customers
+                .Include(c => c.InterestedProductGroups)
+                .ToListAsync();
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<Customer>> GetCustomer(int id) {
-            var customer = await _context.Customers
+            var customer = await context.Customers
                 .Include(c => c.InterestedProductGroups)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
@@ -90,9 +112,10 @@ namespace FairDataGetter.Server.Controllers {
 
             return customer;
         }
+
+        // PUT and DELETE methods here
     }
 
-    // DTO for binding form data
     public class CustomerDto {
         [Required]
         public required string FirstName { get; set; }
@@ -101,12 +124,17 @@ namespace FairDataGetter.Server.Controllers {
         public required string LastName { get; set; }
 
         [Required]
+        [EmailAddress]
         public required string Email { get; set; }
 
         [Required]
         public required IFormFile Image { get; set; }
 
         [Required]
+        public required Address Address { get; set; }
+
+        [Required]
         public required List<string> InterestedProductGroupNames { get; set; }
     }
+
 }

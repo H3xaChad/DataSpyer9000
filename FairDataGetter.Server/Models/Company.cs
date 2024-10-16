@@ -9,9 +9,7 @@ namespace FairDataGetter.Server.Models {
         [MaxLength(42)]
         public required string Name { get; set; }
 
-
-
         [Required]
-        public required string ImagePath { get; set; }
+        public required Address Address { get; set; }
     }
 }

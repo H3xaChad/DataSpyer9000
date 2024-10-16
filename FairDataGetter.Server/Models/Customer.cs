@@ -22,6 +22,9 @@ namespace FairDataGetter.Server.Models {
         public required string ImagePath { get; set; }
 
         [Required]
+        public required Address Address { get; set; }
+
+        [Required]
         public required ICollection<ProductGroup> InterestedProductGroups { get; set; } = [];
     }
 }
