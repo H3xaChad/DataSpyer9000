@@ -9,6 +9,23 @@ namespace FairDataGetter.Server.Controllers {
     [ApiController]
     public class ProductGroupsController(AppDbContext context) : ControllerBase {
 
+        // GET: api/ProductGroups
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductGroup>>> GetProductGroups() {
+            return await context.ProductGroups.ToListAsync();
+        }
+
+        // GET: api/ProductGroups/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductGroup>> GetProductGroup(int id) {
+            var productGroup = await context.ProductGroups.FindAsync(id);
+
+            if (productGroup == null)
+                return NotFound();
+
+            return productGroup;
+        }
+
         // POST: api/ProductGroups
         [HttpPost]
         public async Task<ActionResult<ProductGroup>> PostProductGroup([FromBody] ProductGroup productGroup) {
@@ -26,23 +43,6 @@ namespace FairDataGetter.Server.Controllers {
             await context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetProductGroup), new { id = productGroup.Id }, productGroup);
-        }
-
-        // GET: api/ProductGroups
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductGroup>>> GetProductGroups() {
-            return await context.ProductGroups.ToListAsync();
-        }
-
-        // GET: api/ProductGroups/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ProductGroup>> GetProductGroup(int id) {
-            var productGroup = await context.ProductGroups.FindAsync(id);
-
-            if (productGroup == null)
-                return NotFound();
-
-            return productGroup;
         }
 
         // PUT and DELETE methods here

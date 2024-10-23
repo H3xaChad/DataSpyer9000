@@ -10,6 +10,10 @@ namespace FairDataGetter.Server.Models {
         public required string Street { get; set; }
 
         [Required]
+        [MaxLength(16)]
+        public required string HouseNumber { get; set; }
+
+        [Required]
         [MaxLength(50)]
         public required string City { get; set; }
 

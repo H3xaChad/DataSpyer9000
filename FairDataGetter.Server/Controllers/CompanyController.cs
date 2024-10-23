@@ -9,25 +9,6 @@ namespace FairDataGetter.Server.Controllers {
     [ApiController]
     public class CompaniesController(AppDbContext context) : ControllerBase {
 
-        // POST: api/Companies
-        [HttpPost]
-        public async Task<ActionResult<Company>> PostCompany([FromBody] Company company) {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            // Check for duplicate company name
-            bool exists = await context.Companies
-                .AnyAsync(c => c.Name.Equals(company.Name, StringComparison.OrdinalIgnoreCase));
-
-            if (exists)
-                return Conflict("A company with the same name already exists.");
-
-            context.Companies.Add(company);
-            await context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetCompany), new { id = company.Id }, company);
-        }
-
         // GET: api/Companies
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Company>>> GetCompanies() {
@@ -36,7 +17,7 @@ namespace FairDataGetter.Server.Controllers {
                 .ToListAsync();
         }
 
-        // GET: api/Companies/5
+        // GET: api/Companies/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Company>> GetCompany(int id) {
             var company = await context.Companies
@@ -47,6 +28,24 @@ namespace FairDataGetter.Server.Controllers {
                 return NotFound();
 
             return company;
+        }
+
+        // POST: api/Companies
+        [HttpPost]
+        public async Task<ActionResult<Company>> PostCompany([FromBody] Company company) {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            bool exists = await context.Companies
+                .AnyAsync(c => c.Name.Equals(company.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (exists)
+                return Conflict("A company with the same name already exists.");
+
+            context.Companies.Add(company);
+            await context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetCompany), new { id = company.Id }, company);
         }
 
         // PUT and DELETE methods here

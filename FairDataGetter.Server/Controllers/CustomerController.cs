@@ -34,6 +34,28 @@ namespace FairDataGetter.Server.Controllers {
         //    return new string(str.Where(c => char.IsLetterOrDigit(c)).ToArray());
         //}
 
+        // GET: api/Customers
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers() {
+            return await context.Customers
+                .Include(c => c.InterestedProductGroups)
+                .ToListAsync();
+        }
+
+        // GET: api/Customers{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Customer>> GetCustomer(int id) {
+            var customer = await context.Customers
+                .Include(c => c.InterestedProductGroups)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (customer == null)
+                return NotFound();
+
+            return customer;
+        }
+
+        // POST: api/Customers
         [HttpPost]
         public async Task<IActionResult> PostCustomer([FromForm] CustomerDto customerDto) {
             if (!ModelState.IsValid)
@@ -71,7 +93,6 @@ namespace FairDataGetter.Server.Controllers {
             if (newProductGroups.Count != 0) {
                 context.ProductGroups.AddRange(newProductGroups);
                 await context.SaveChangesAsync();
-
                 existingProductGroups.AddRange(newProductGroups);
             }
 
@@ -92,25 +113,6 @@ namespace FairDataGetter.Server.Controllers {
             await context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetCustomer), new { id = customer.Id }, customer);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers() {
-            return await context.Customers
-                .Include(c => c.InterestedProductGroups)
-                .ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id) {
-            var customer = await context.Customers
-                .Include(c => c.InterestedProductGroups)
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (customer == null)
-                return NotFound();
-
-            return customer;
         }
 
         // PUT and DELETE methods here
