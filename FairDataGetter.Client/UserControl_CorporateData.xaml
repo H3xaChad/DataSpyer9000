@@ -43,11 +43,12 @@
             <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="City Name" Background="Transparent" BorderThickness="0"/>
         </Border>
 
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,330,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
-            <Button Content="Continue" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
-        </Border>
+        
         <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,330,0,0" Width="110" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
+        </Border>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,330,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
+            <Button Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
         </Border>
 
 

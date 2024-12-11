@@ -92,7 +92,6 @@
 
         <Label Content="Image" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="540,115,0,0" VerticalAlignment="Top" FontSize="15"/>
 
-
         <Label Content="Product Groups" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="540,260,0,0" VerticalAlignment="Top" FontSize="15"/>
 
         <Image HorizontalAlignment="Left" Height="115" Margin="547,145,0,0" VerticalAlignment="Top" Width="182"/>
@@ -110,10 +109,10 @@
         </ListBox>
 
         <Border HorizontalAlignment="Left" Margin="540,385,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <Button Content="Return" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
+            <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="665,385,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
-            <Button Content="Submit" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButtonClicked"/>
+            <Button Content="Submit" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButtonClicked"/>
         </Border>
 
     </Grid>

@@ -31,17 +31,17 @@
         </Canvas>
 
         <Border HorizontalAlignment="Left" Margin="50,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="DarkSeaGreen">
-            <Button Content="Take Picture" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Content="Take Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="200,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="IndianRed">
             <Button Content="Reset Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
 
-        <Border HorizontalAlignment="Left" Margin="200,370,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
-            <Button Content="Continue" Background="Transparent" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
-        </Border>
         <Border HorizontalAlignment="Left" Margin="50,370,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
+        </Border>
+        <Border HorizontalAlignment="Left" Margin="200,370,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
+            <Button Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
         </Border>
 
     </Grid>
