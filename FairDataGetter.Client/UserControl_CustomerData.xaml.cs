@@ -41,7 +41,7 @@ namespace FairDataGetter.Client
 
         private void LoginButtonClicked(object sender, RoutedEventArgs e)
         {
-            //MainWindow.UpdateView(new UserControl_EmployeeLogin());
+            MainWindow.UpdateView(new UserControl_EmployeeLogin());
         }
     }
 }
