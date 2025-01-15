@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FairDataGetter.Client.Class;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FairDataGetter.Client
 {
@@ -20,19 +9,56 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_CorporateData : UserControl
     {
-        public UserControl_CorporateData()
+        Address customerAddress;
+        Customer newCustomer;
+
+        public UserControl_CorporateData(Address address, Customer customer)
         {
+            customerAddress = address;
+            newCustomer = customer;
+
             InitializeComponent();
+        }
+
+        private void InitializeWithParameters(Address address, Customer customer)
+        {
+
         }
 
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)
         {
-            MainWindow.UpdateView(new UserControl_CustomerProductGroups());
+            Address companyAddress = new Address
+            {
+                Street = CompanyAddressTextbox.Text,
+                HouseNumber = CompanyHouseNumberTextbox.Text,
+                City = CompanyCityTextbox.Text,
+                PostalCode = CompanyPostalCodeTextbox.Text,
+                Country = CompanyCountryTextbox.Text
+            };
+
+            Company newCompany = new Company
+            { 
+                Name = CompanyNameTextbox.Text,
+                Address = companyAddress
+            };
+
+            System.Diagnostics.Debug.WriteLine("****** Output After Company Data");
+            System.Diagnostics.Debug.WriteLine(newCompany);
+            System.Diagnostics.Debug.WriteLine(newCompany.Name);
+            System.Diagnostics.Debug.WriteLine(newCompany.Address);
+            System.Diagnostics.Debug.WriteLine(newCompany.Address.Street);
+            System.Diagnostics.Debug.WriteLine(newCompany.Address.HouseNumber);
+            System.Diagnostics.Debug.WriteLine(newCompany.Address.City);
+            System.Diagnostics.Debug.WriteLine(newCompany.Address.PostalCode);
+            System.Diagnostics.Debug.WriteLine(newCompany.Address.Country);
+            System.Diagnostics.Debug.WriteLine("****** End of Output After Company Data");
+
+            MainWindow.UpdateView(new UserControl_CustomerProductGroups(customerAddress, newCustomer, companyAddress, newCompany));
         }
 
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
         {
-            MainWindow.UpdateView(new UserControl_CustomerData());
+            MainWindow.UpdateView(new UserControl_CustomerData(customerAddress, newCustomer));
         }
     }
 }

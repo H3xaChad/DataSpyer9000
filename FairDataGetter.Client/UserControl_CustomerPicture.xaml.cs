@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FairDataGetter.Client.Class;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace FairDataGetter.Client
 {
@@ -20,18 +10,30 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_CustomerPicture : UserControl
     {
-        public UserControl_CustomerPicture()
+        Address customerAddress;
+        Customer newCustomer;
+        Address companyAddress;
+        Company company;
+        List<ProductGroup> productGroups;
+
+        public UserControl_CustomerPicture(Address address, Customer customer, List<ProductGroup> productGroups, Address companyAddress = null, Company company = null)
         {
+            customerAddress = address;
+            newCustomer = customer;
+            this.companyAddress = companyAddress;
+            this.company = company;
+            this.productGroups = productGroups;
+
             InitializeComponent();
         }
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)
         {
-            MainWindow.UpdateView(new UserControl_CustomerSubmit());
+            MainWindow.UpdateView(new UserControl_CustomerSubmit(customerAddress, newCustomer, productGroups, companyAddress, company));
         }
 
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
         {
-            MainWindow.UpdateView(new UserControl_CustomerProductGroups());
+            MainWindow.UpdateView(new UserControl_CustomerProductGroups(customerAddress, newCustomer, companyAddress, company, productGroups));
         }
     }
 }

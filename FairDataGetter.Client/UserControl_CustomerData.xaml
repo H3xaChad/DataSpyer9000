@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FairDataGetter.Client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="350">
+             d:DesignHeight="500" d:DesignWidth="350">
     
     <Grid Background="DarkGray">
         <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
@@ -25,35 +25,41 @@
             <TextBlock Text="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
 
-        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="332" Margin="25,106,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
+        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="380" Margin="25,106,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
         <Border HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="First Name" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerFirstNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="First Name" Background="Transparent" BorderThickness="0"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,155,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Last Name" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerLastNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Last Name" Background="Transparent" BorderThickness="0"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,190,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Address" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerEmailTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Email address" Background="Transparent" BorderThickness="0"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,225,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="House Number" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerAddressTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Address" Background="Transparent" BorderThickness="0"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,260,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Postal Code" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerHouseNumberTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="House Number" Background="Transparent" BorderThickness="0"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,295,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="City Name" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerPostalCodeTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Postal Code" Background="Transparent" BorderThickness="0"/>
+        </Border>
+        <Border HorizontalAlignment="Left" Margin="50,330,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CustomerCityTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="City" Background="Transparent" BorderThickness="0"/>
+        </Border>
+        <Border HorizontalAlignment="Left" Margin="50,365,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CustomerCountryTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Country" Background="Transparent" BorderThickness="0"/>
         </Border>
 
-        <Label Content="Are you a corporate customer?" HorizontalAlignment="Left" Margin="50,330,0,0" VerticalAlignment="Top"/>
-        <RadioButton Name="RadioBtn_Yes" Content="Yes" HorizontalAlignment="Left" Margin="250,335,0,0" VerticalAlignment="Top"/>
-        <RadioButton Name="RadioBtn_No" Content="No" HorizontalAlignment="Left" Margin="250,355,0,0" VerticalAlignment="Top"/>
+        <Label Content="Are you a corporate customer?" HorizontalAlignment="Left" Margin="50,400,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="RadioBtn_Yes" Content="Yes" HorizontalAlignment="Left" Margin="250,405,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="RadioBtn_No" Content="No" HorizontalAlignment="Left" Margin="250,425,0,0" VerticalAlignment="Top"/>
 
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,390,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,450,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Employee Login" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoginButtonClicked"/>
         </Border>
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,390,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,450,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
             <Button Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
         </Border>
     </Grid>

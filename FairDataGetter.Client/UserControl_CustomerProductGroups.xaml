@@ -5,26 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FairDataGetter.Client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="350">
+             d:DesignHeight="500" d:DesignWidth="350">
     <Grid Background="DarkGray">
         <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
         <Label Content="Please enter your information &#xD;&#xA;to recieve all our benefits!" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="25,45,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56"/>
 
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="265" Margin="25,106,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
-        <Label Content="´Which product groups are you interessted in?" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top"/>
+        <Label Content="Which product groups are you interessted in?" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton Content="Product Group 1" HorizontalAlignment="Left" Margin="50,170,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Product Group 2" HorizontalAlignment="Left" Margin="190,170,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup1" Content="Product Group 1" HorizontalAlignment="Left" Margin="50,170,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup2" Content="Product Group 2" HorizontalAlignment="Left" Margin="190,170,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton Content="Product Group 3" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Product Group 4" HorizontalAlignment="Left" Margin="190,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup3" Content="Product Group 3" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup4" Content="Product Group 4" HorizontalAlignment="Left" Margin="190,200,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton Content="Product Group 5" HorizontalAlignment="Left" Margin="50,230,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Product Group 6" HorizontalAlignment="Left" Margin="190,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup5" Content="Product Group 5" HorizontalAlignment="Left" Margin="50,230,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup6" Content="Product Group 6" HorizontalAlignment="Left" Margin="190,230,0,0" VerticalAlignment="Top"/>
 
-        <RadioButton Content="Product Group 7" HorizontalAlignment="Left" Margin="50,260,0,0" VerticalAlignment="Top"/>
-        <RadioButton Content="Product Group 8" HorizontalAlignment="Left" Margin="190,260,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup7" Content="Product Group 7" HorizontalAlignment="Left" Margin="50,260,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="ProductGroup8" Content="Product Group 8" HorizontalAlignment="Left" Margin="190,260,0,0" VerticalAlignment="Top"/>
 
         
         <Border HorizontalAlignment="Left" Margin="50,200,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
