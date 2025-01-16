@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FairDataGetter.Client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="350">
+             d:DesignHeight="500" d:DesignWidth="350"
+             Loaded="UserControl_Loaded">
+    
     <Grid Background="DarkGray">
         <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
         <TextBlock Text="Please take a picture of yourself" TextAlignment="Center" HorizontalAlignment="Left" Margin="25,30,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56"/>
@@ -24,24 +26,28 @@
             <TextBlock Text="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
 
-        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="330" Margin="25,110,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
+        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="350" Margin="25,110,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
-        <Canvas Name="Canvas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="250" Width="290" Margin="30,125,0,0">
-            <Image Name="webCamImage" Height="250" Width="290"></Image>
+        <Canvas Name="webCamImageCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="120" Margin="195,125,0,0">
+            <Image Name="webCamImage" Height="70" Width="120"></Image>
+        </Canvas>
+
+        <Canvas Name="takenPictureCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="200" Width="290" Margin="30,185,0,0">
+            <Image Name="takenPicture" Height="200" Width="290"></Image>
         </Canvas>
 
         <Border HorizontalAlignment="Left" Margin="50,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="DarkSeaGreen">
-            <Button Content="Take Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="Take Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="TakePictureButtonClicked"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="200,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="IndianRed">
-            <Button Content="Reset Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button Content="Reset Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ResetPictureButtonClicked"/>
         </Border>
 
         <Border HorizontalAlignment="Left" Margin="50,370,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="200,370,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
-            <Button Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
+            <Button Name="ContinueButton" Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" Click="ContinueButtonClicked" />
         </Border>
 
     </Grid>

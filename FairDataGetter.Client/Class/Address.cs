@@ -35,10 +35,16 @@ namespace FairDataGetter.Client.Class
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
         public required string Email { get; set; }
-        public required string ImagePath { get; set; }
+        public required string ImageBase64 { get; set; }
         public required Address Address { get; set; }
-        public ICollection<ProductGroup> InterestedProductGroups { get; set; }
+        public List<ProductGroup> InterestedProductGroups { get; set; }
         public required bool IsCorporateCustomer { get; set; }
 
+    }
+
+    public class ExportData
+    {
+        public Customer Customer { get; set; }
+        public Company Company { get; set; }
     }
 }

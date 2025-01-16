@@ -10,21 +10,16 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_CustomerProductGroups : UserControl
     {
-        private Address customerAddress;
+
         private Customer newCustomer;
-        private Address companyAddress;
         private Company newCompany;
 
         private List<ProductGroup> selectedProductGroups = new List<ProductGroup>();
 
-        public UserControl_CustomerProductGroups(Address address, Customer customer, Address companyAddress = null, Company company = null, List<ProductGroup> productGroups = null)
+        public UserControl_CustomerProductGroups(Customer customer, Company company = null)
         {
-            customerAddress = address;
             newCustomer = customer;
-            this.companyAddress = companyAddress;
             newCompany = company;
-
-            selectedProductGroups = productGroups ?? new List<ProductGroup>();
 
             InitializeComponent();
         }
@@ -114,13 +109,16 @@ namespace FairDataGetter.Client
             }
             //***
 
-            if (companyAddress != null && newCompany != null)
+
+            newCustomer.InterestedProductGroups = selectedProductGroups;
+
+            if (newCompany != null)
             {
-                MainWindow.UpdateView(new UserControl_CustomerPicture(customerAddress, newCustomer, selectedProductGroups, companyAddress, newCompany));
+                MainWindow.UpdateView(new UserControl_CustomerPicture(newCustomer, newCompany));
             }
             else
             {
-                MainWindow.UpdateView(new UserControl_CustomerPicture(customerAddress, newCustomer, selectedProductGroups));
+                MainWindow.UpdateView(new UserControl_CustomerPicture(newCustomer));
             }
             
         }
@@ -129,11 +127,11 @@ namespace FairDataGetter.Client
         {
             if (NavigationState.IsCorporateCustomer)
             {
-                MainWindow.UpdateView(new UserControl_CorporateData(customerAddress, newCustomer));
+                MainWindow.UpdateView(new UserControl_CorporateData(newCustomer));
             }
             else
             {
-                MainWindow.UpdateView(new UserControl_CustomerData(customerAddress, newCustomer));
+                MainWindow.UpdateView(new UserControl_CustomerData(newCustomer));
             }
         }
     }

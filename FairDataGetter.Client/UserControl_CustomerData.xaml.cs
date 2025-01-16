@@ -12,40 +12,38 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_CustomerData : UserControl
     {
-        public UserControl_CustomerData()
+        private Customer customer;
+
+        public UserControl_CustomerData(Customer customer = null)
         {
+            this.customer = customer;
             InitializeComponent();
-        }
 
-        public UserControl_CustomerData(Address address, Customer customer)
-            : this() // Call the default constructor
-        {
-            // Use the provided Customer and Address arguments
-            InitializeWithParameters(address, customer);
-        }
-
-        private void InitializeWithParameters(Address address, Customer customer)
-        {
-            CustomerAddressTextbox.Text = address.Street;
-            CustomerHouseNumberTextbox.Text = address.HouseNumber;
-            CustomerCityTextbox.Text = address.City;
-            CustomerPostalCodeTextbox.Text = address.PostalCode;
-            CustomerCountryTextbox.Text = address.Country;
-
-            CustomerFirstNameTextbox.Text = customer.FirstName;
-            CustomerLastNameTextbox.Text = customer.LastName;
-            CustomerEmailTextbox.Text = customer.Email;
-
-            // Set the radio button based on IsCorporateCustomer attribute
-            if (customer.IsCorporateCustomer)
+            // If customer data is present (e.g. after customer returns to first screen)
+            if (customer != null)
             {
-                RadioBtn_Yes.IsChecked = true;
-                RadioBtn_No.IsChecked = false;
-            }
-            else
-            {
-                RadioBtn_Yes.IsChecked = false;
-                RadioBtn_No.IsChecked = true;
+                // Fill UI with customer information
+                CustomerAddressTextbox.Text = customer.Address.Street;
+                CustomerHouseNumberTextbox.Text = customer.Address.HouseNumber;
+                CustomerCityTextbox.Text = customer.Address.City;
+                CustomerPostalCodeTextbox.Text = customer.Address.PostalCode;
+                CustomerCountryTextbox.Text = customer.Address.Country;
+
+                CustomerFirstNameTextbox.Text = customer.FirstName;
+                CustomerLastNameTextbox.Text = customer.LastName;
+                CustomerEmailTextbox.Text = customer.Email;
+
+                // Set the radio button based on IsCorporateCustomer attribute
+                if (customer.IsCorporateCustomer)
+                {
+                    RadioBtn_Yes.IsChecked = true;
+                    RadioBtn_No.IsChecked = false;
+                }
+                else
+                {
+                    RadioBtn_Yes.IsChecked = false;
+                    RadioBtn_No.IsChecked = true;
+                }
             }
         }
 
@@ -84,7 +82,7 @@ namespace FairDataGetter.Client
                     FirstName = CustomerFirstNameTextbox.Text,
                     LastName = CustomerLastNameTextbox.Text,
                     Email = CustomerEmailTextbox.Text,
-                    ImagePath = "Hardcoded Image Path",
+                    ImageBase64 = null,
                     Address = customerAddress,
                     IsCorporateCustomer = NavigationState.IsCorporateCustomer
                 };
@@ -109,11 +107,11 @@ namespace FairDataGetter.Client
 
                 if (newCustomer.IsCorporateCustomer)
                 {
-                    MainWindow.UpdateView(new UserControl_CorporateData(customerAddress, newCustomer));
+                    MainWindow.UpdateView(new UserControl_CorporateData(newCustomer));
                 }
                 else
                 {
-                    MainWindow.UpdateView(new UserControl_CustomerProductGroups(customerAddress, newCustomer));
+                    MainWindow.UpdateView(new UserControl_CustomerProductGroups(newCustomer));
                 }
             }
         }

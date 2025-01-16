@@ -12,17 +12,11 @@ namespace FairDataGetter.Client
         Address customerAddress;
         Customer newCustomer;
 
-        public UserControl_CorporateData(Address address, Customer customer)
+        public UserControl_CorporateData(Customer customer)
         {
-            customerAddress = address;
             newCustomer = customer;
 
             InitializeComponent();
-        }
-
-        private void InitializeWithParameters(Address address, Customer customer)
-        {
-
         }
 
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)
@@ -53,12 +47,12 @@ namespace FairDataGetter.Client
             System.Diagnostics.Debug.WriteLine(newCompany.Address.Country);
             System.Diagnostics.Debug.WriteLine("****** End of Output After Company Data");
 
-            MainWindow.UpdateView(new UserControl_CustomerProductGroups(customerAddress, newCustomer, companyAddress, newCompany));
+            MainWindow.UpdateView(new UserControl_CustomerProductGroups(newCustomer, newCompany));
         }
 
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
         {
-            MainWindow.UpdateView(new UserControl_CustomerData(customerAddress, newCustomer));
+            MainWindow.UpdateView(new UserControl_CustomerData(newCustomer));
         }
     }
 }

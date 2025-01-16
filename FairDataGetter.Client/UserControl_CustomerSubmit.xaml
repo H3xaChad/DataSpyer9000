@@ -65,52 +65,54 @@
         </Border>
 
         <Label Content="Corporate customer?" HorizontalAlignment="Left" Margin="20,395,0,0" VerticalAlignment="Top"/>
-        <RadioButton Name="RadioBtn_Yes" Content="Yes" HorizontalAlignment="Left" Margin="150,400,0,0" VerticalAlignment="Top" Checked="YesRadioButton_Checked"/>
-        <RadioButton Name="RadioBtn_No" Content="No" HorizontalAlignment="Left" Margin="200,400,0,0" VerticalAlignment="Top" Checked="NoRadioButton_Checked"/>
+        <RadioButton Name="RadioBtn_Yes" Content="Yes" HorizontalAlignment="Left" Margin="150,400,0,0" VerticalAlignment="Top"/>
+        <RadioButton Name="RadioBtn_No" Content="No" HorizontalAlignment="Left" Margin="200,400,0,0" VerticalAlignment="Top"/>
 
         <Label Content="Company Data" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,115,0,0" VerticalAlignment="Top" FontSize="15"/>
 
         <Label Content="Name" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,155,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border HorizontalAlignment="Left" Margin="350,155,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CompanyNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Name" Background="Transparent" BorderThickness="0"/>
+        <Border Name="CompanyNameBorder" HorizontalAlignment="Left" Margin="350,155,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CompanyNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
 
         <Label Content="Address" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,190,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border HorizontalAlignment="Left" Margin="350,190,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CompanyAddressTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Address" Background="Transparent" BorderThickness="0"/>
+        <Border Name="CompanyAddressBorder" HorizontalAlignment="Left" Margin="350,190,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CompanyAddressTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
 
         <Label Content="House No." HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,225,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border HorizontalAlignment="Left" Margin="350,225,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CompanyHouseNumberTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="House Number" Background="Transparent" BorderThickness="0"/>
+        <Border Name="CompanyHouseNumberBorder" HorizontalAlignment="Left" Margin="350,225,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CompanyHouseNumberTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
 
         <Label Content="Postal Code" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,260,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border HorizontalAlignment="Left" Margin="350,260,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CompanyPostalCodeTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Postal Code" Background="Transparent" BorderThickness="0"/>
+        <Border  Name="CompanyPostalCodeBorder" HorizontalAlignment="Left" Margin="350,260,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CompanyPostalCodeTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
 
         <Label Content="City" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,295,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border HorizontalAlignment="Left" Margin="350,295,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CompanyCityTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="City" Background="Transparent" BorderThickness="0"/>
+        <Border  Name="CompanyCityBorder" HorizontalAlignment="Left" Margin="350,295,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CompanyCityTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        </Border>
+
+        <Label Content="Country" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="280,330,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="CompanyCountryBorder" HorizontalAlignment="Left" Margin="350,330,0,0" VerticalAlignment="Top" Width="180" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="CompanyCountryTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
 
         <Label Content="Image" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="540,115,0,0" VerticalAlignment="Top" FontSize="15"/>
 
         <Label Content="Product Groups" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="540,260,0,0" VerticalAlignment="Top" FontSize="15"/>
 
-        <Image HorizontalAlignment="Left" Height="115" Margin="547,145,0,0" VerticalAlignment="Top" Width="182"/>
+        <Image Name="CustomerPictureImage" HorizontalAlignment="Left" Height="115" Margin="547,145,0,0" VerticalAlignment="Top" Width="182"/>
         <TextBlock HorizontalAlignment="Left" Margin="547,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="115" Width="180"><Run Text="Product Group 1"/><LineBreak/><Run Text="Product Group 2"/><LineBreak/><Run Text="Product Group 3"/><LineBreak/><Run Text="Product Group 4"/><LineBreak/><Run Text="Product Group 5"/><LineBreak/><Run Text="Product Group 6"/></TextBlock>
 
         <ListBox Name="CustomerProductGroupsListbox" HorizontalAlignment="Left" VerticalAlignment="Top" Height="100" Width="240" Margin="540,290,0,0">
-            <ListBoxItem>Product Group 1</ListBoxItem>
-            <ListBoxItem>Product Group 2</ListBoxItem>
-            <ListBoxItem>Product Group 3</ListBoxItem>
-            <ListBoxItem>Product Group 4</ListBoxItem>
-            <ListBoxItem>Product Group 5</ListBoxItem>
-            <ListBoxItem>Product Group 6</ListBoxItem>
-            <ListBoxItem>Product Group 7</ListBoxItem>
-            <ListBoxItem>Product Group 8</ListBoxItem>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
 
         <Border HorizontalAlignment="Left" Margin="540,385,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
