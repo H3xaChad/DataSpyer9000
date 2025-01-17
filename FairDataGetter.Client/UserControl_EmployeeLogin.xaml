@@ -5,25 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FairDataGetter.Client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="350">
+             d:DesignHeight="500" d:DesignWidth="350">
 
     <Grid Background="DarkGray">
         <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
         <TextBlock Text="Enter your Employee ID and password!" TextAlignment="Center" HorizontalAlignment="Left" Margin="25,15,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56"/>
 
-        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="140" Margin="25,100,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
+        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="160" Margin="25,100,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
-        <Border HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Employee ID" Background="Transparent" BorderThickness="0"/>
+        <Label Content="Employee ID" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border HorizontalAlignment="Left" Margin="50,125,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="EmployeeIdTextbox" Text="{Binding EmployeeID, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
-        <Border HorizontalAlignment="Left" Margin="50,155,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <PasswordBox Password="Password" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        <Label Content="Password" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border HorizontalAlignment="Left" Margin="50,175,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <PasswordBox x:Name="PasswordBox" PasswordChanged="PasswordBox_PasswordChanged" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
-        
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,200,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,220,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
         </Border>
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,200,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,220,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
             <Button Content="Login" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoginButtonClicked"/>
         </Border>
     </Grid>

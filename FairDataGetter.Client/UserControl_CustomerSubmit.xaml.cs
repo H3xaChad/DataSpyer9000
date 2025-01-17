@@ -27,37 +27,43 @@ namespace FairDataGetter.Client
 
             InitializeComponent();
 
-            CustomerFirstNameTextbox.Text = customer.FirstName;
-            CustomerLastNameTextbox.Text = customer.LastName;
-            CustomerAddressTextbox.Text = customer.Address.Street;
-            CustomerHouseNumberTextbox.Text = customer.Address.HouseNumber;
-            CustomerPostalCodeTextbox.Text = customer.Address.PostalCode;
-            CustomerCityTextbox.Text = customer.Address.City;
-            CustomerCountryTextbox.Text = customer.Address.Country;
-            CustomerPictureImage.Source = ConvertBase64ToImageSource(customer.ImageBase64);
-            CustomerProductGroupsListbox.ItemsSource = customer.InterestedProductGroups;
+            CustomerFirstNameTextbox.Text = newCustomer.FirstName;
+            CustomerLastNameTextbox.Text = newCustomer.LastName;
+            CustomerAddressTextbox.Text = newCustomer.Address.Street;
+            CustomerHouseNumberTextbox.Text = newCustomer.Address.HouseNumber;
+            CustomerPostalCodeTextbox.Text = newCustomer.Address.PostalCode;
+            CustomerCityTextbox.Text = newCustomer.Address.City;
+            CustomerCountryTextbox.Text = newCustomer.Address.Country;
+            CustomerPictureImage.Source = ConvertBase64ToImageSource(newCustomer.ImageBase64);
+            CustomerProductGroupsListbox.ItemsSource = newCustomer.InterestedProductGroups;
 
-            if (customer.IsCorporateCustomer)
+            // If customer is corparate customer
+            if (newCustomer.IsCorporateCustomer)
             {
+                // Select checkboxes and disable them
                 RadioBtn_Yes.IsChecked = true;
                 RadioBtn_No.IsChecked = false;
                 RadioBtn_Yes.IsEnabled = false;
                 RadioBtn_No.IsEnabled = false;
 
-                CompanyNameTextbox.Text = company.Name;
-                CompanyAddressTextbox.Text = company.Address.Street;
-                CompanyHouseNumberTextbox.Text = company.Address.HouseNumber;
-                CompanyPostalCodeTextbox.Text = company.Address.PostalCode;
-                CompanyCityTextbox.Text = company.Address.City;
-                CompanyCountryTextbox.Text = company.Address.Country;
+                // Load corparate data into corparate textboxes
+                CompanyNameTextbox.Text = newCompany.Name;
+                CompanyAddressTextbox.Text = newCompany.Address.Street;
+                CompanyHouseNumberTextbox.Text = newCompany.Address.HouseNumber;
+                CompanyPostalCodeTextbox.Text = newCompany.Address.PostalCode;
+                CompanyCityTextbox.Text = newCompany.Address.City;
+                CompanyCountryTextbox.Text = newCompany.Address.Country;
             }
+            // If customer is not corparate customer
             else
             {
+                // Select checkboxes and disable them
                 RadioBtn_Yes.IsChecked = false;
                 RadioBtn_No.IsChecked = true;
                 RadioBtn_Yes.IsEnabled = false;
                 RadioBtn_No.IsEnabled = false;
-
+                
+                // Clear and disable corparate textboxes
                 CompanyNameTextbox.IsEnabled = false;
                 CompanyNameBorder.Background = new SolidColorBrush(Colors.LightGray);
                 CompanyAddressTextbox.IsEnabled = false;
@@ -73,10 +79,33 @@ namespace FairDataGetter.Client
 
             }
         }
+
+        // Submit
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Get current data from customer textboxes
+                newCustomer.FirstName = CustomerFirstNameTextbox.Text;
+                newCustomer.LastName = CustomerLastNameTextbox.Text;
+                newCustomer.Address.Street = CustomerAddressTextbox.Text;
+                newCustomer.Address.HouseNumber = CustomerHouseNumberTextbox.Text;
+                newCustomer.Address.PostalCode = CustomerPostalCodeTextbox.Text;
+                newCustomer.Address.City = CustomerCityTextbox.Text;
+                newCustomer.Address.Country = CustomerCountryTextbox.Text;
+
+                // Get current data from corparate textboxes
+                if (newCompany != null)
+                {
+                     newCompany.Name = CompanyNameTextbox.Text;
+                     newCompany.Address.Street = CompanyAddressTextbox.Text;
+                     newCompany.Address.HouseNumber = CompanyHouseNumberTextbox.Text;
+                     newCompany.Address.PostalCode = CompanyPostalCodeTextbox.Text;
+                     newCompany.Address.City = CompanyCityTextbox.Text;
+                     newCompany.Address.Country = CompanyCountryTextbox.Text;
+                }
+
+                // Create export data
                 ExportData newCustomerData = new ExportData();
 
                 if (newCompany != null)
@@ -89,6 +118,7 @@ namespace FairDataGetter.Client
                     newCustomerData.Customer = newCustomer;
                 }
 
+                // Create list of all data
                 List<ExportData> allCustomerData = new List<ExportData>();
 
                 string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -102,8 +132,10 @@ namespace FairDataGetter.Client
                     allCustomerData = JsonConvert.DeserializeObject<List<ExportData>>(importDataJson);
                 }
 
+                // Add new data to existing data
                 allCustomerData.Add(newCustomerData);
 
+                // Serialize and export all data
                 string exportAllDataJson = JsonConvert.SerializeObject(allCustomerData, Formatting.Indented);
                 File.WriteAllText(filePath, exportAllDataJson);
 
@@ -118,11 +150,13 @@ namespace FairDataGetter.Client
             }
         }
 
+        // Return
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
         {
             MainWindow.UpdateView(new UserControl_CustomerPicture(newCustomer, newCompany));
         }
 
+        // Covert base64 to imagesource, to display customer picture
         private ImageSource ConvertBase64ToImageSource(string base64String)
         {
             try
@@ -141,6 +175,5 @@ namespace FairDataGetter.Client
                 return null;
             }
         }
-
     }
 }

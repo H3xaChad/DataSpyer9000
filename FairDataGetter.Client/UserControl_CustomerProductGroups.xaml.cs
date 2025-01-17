@@ -125,9 +125,9 @@ namespace FairDataGetter.Client
 
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
         {
-            if (NavigationState.IsCorporateCustomer)
+            if (newCompany != null)
             {
-                MainWindow.UpdateView(new UserControl_CorporateData(newCustomer));
+                MainWindow.UpdateView(new UserControl_CorporateData(newCustomer, newCompany));
             }
             else
             {

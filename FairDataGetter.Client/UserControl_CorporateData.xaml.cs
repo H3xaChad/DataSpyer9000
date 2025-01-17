@@ -9,14 +9,26 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_CorporateData : UserControl
     {
-        Address customerAddress;
         Customer newCustomer;
+        Company newCompany;
 
-        public UserControl_CorporateData(Customer customer)
+        public UserControl_CorporateData(Customer customer, Company company = null)
         {
             newCustomer = customer;
+            newCompany = company;
 
             InitializeComponent();
+
+            // Load Corparate Data if available
+            if (newCompany != null)
+            {
+                CompanyNameTextbox.Text = newCompany.Name;
+                CompanyAddressTextbox.Text = newCompany.Address.Street;
+                CompanyHouseNumberTextbox.Text = newCompany.Address.HouseNumber;
+                CompanyPostalCodeTextbox.Text = newCompany.Address.PostalCode;
+                CompanyCityTextbox.Text = newCompany.Address.City;
+                CompanyCountryTextbox.Text = newCompany.Address.Country;
+            }
         }
 
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)
