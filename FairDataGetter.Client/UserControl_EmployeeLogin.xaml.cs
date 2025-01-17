@@ -57,6 +57,7 @@ namespace FairDataGetter.Client
                 {
                     builder.Append(b.ToString("x2"));
                 }
+
                 return builder.ToString();
             }
         }
@@ -64,7 +65,6 @@ namespace FairDataGetter.Client
         // Aktualisiere das Passwort-Feld (_password) bei Änderungen in der PasswordBox
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            
             if (sender is PasswordBox passwordBox)
             {
                 _password = passwordBox.Password;

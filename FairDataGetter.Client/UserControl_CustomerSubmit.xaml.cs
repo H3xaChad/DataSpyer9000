@@ -85,6 +85,27 @@ namespace FairDataGetter.Client
         {
             try
             {
+                // Create list of all data
+                List<ExportData> allCustomerData = new List<ExportData>();
+
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string filePath = Path.Combine(documentsPath, "local_customer_data.json");
+
+                // Checks if export files exists
+                if (File.Exists(filePath))
+                {
+                    // If file exists, read the existing data
+                    string importDataJson = File.ReadAllText(filePath);
+                    allCustomerData = JsonConvert.DeserializeObject<List<ExportData>>(importDataJson);
+                }
+
+                newCustomer.Id = GetNextCustomerId(allCustomerData);
+
+                if (newCompany != null)
+                {
+                    newCompany.Id = GetNextCompanyId(allCustomerData);
+                }
+
                 // Get current data from customer textboxes
                 newCustomer.FirstName = CustomerFirstNameTextbox.Text;
                 newCustomer.LastName = CustomerLastNameTextbox.Text;
@@ -107,29 +128,11 @@ namespace FairDataGetter.Client
 
                 // Create export data
                 ExportData newCustomerData = new ExportData();
+                newCustomerData.Customer = newCustomer;
 
                 if (newCompany != null)
                 {
                     newCustomerData.Company = newCompany;
-                    newCustomerData.Customer = newCustomer;
-                }
-                else
-                {
-                    newCustomerData.Customer = newCustomer;
-                }
-
-                // Create list of all data
-                List<ExportData> allCustomerData = new List<ExportData>();
-
-                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                string filePath = Path.Combine(documentsPath, "customer_data.json");
-
-                // Checks if export files exists
-                if (File.Exists(filePath))
-                {
-                    // If file exists, read the existing data
-                    string importDataJson = File.ReadAllText(filePath);
-                    allCustomerData = JsonConvert.DeserializeObject<List<ExportData>>(importDataJson);
                 }
 
                 // Add new data to existing data
@@ -174,6 +177,32 @@ namespace FairDataGetter.Client
                 Console.WriteLine($"Error converting Base64 to ImageSource: {ex.Message}");
                 return null;
             }
+        }
+
+        private int GetNextCustomerId(List<ExportData> existingCustomerData)
+        {
+            // Check if the list is empty. If empty, return 1, else get the max ID + 1
+            if (existingCustomerData.Count == 0)
+            {
+                return 0; // Start with 1 if there are no existing customers
+            }
+
+            return existingCustomerData
+                .Where(c => c.Customer != null)  // Only include entries with Customer data
+                .Max(c => c.Customer.Id) + 1;    // Get max Id and add 1
+        }
+
+        private int GetNextCompanyId(List<ExportData> existingCustomerData)
+        {
+            // Check if the list is empty. If empty, return 1, else get the max ID + 1
+            if (existingCustomerData.Count == 0)
+            {
+                return 0; // Start with 1 if there are no existing companies
+            }
+
+            return existingCustomerData
+                .Where(c => c.Company != null)   // Only include entries with Company data
+                .Max(c => c.Company.Id) + 1;     // Get max Id and add 1
         }
     }
 }

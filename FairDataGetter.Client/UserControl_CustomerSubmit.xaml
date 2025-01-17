@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FairDataGetter.Client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
     
     <Grid Background="DarkGray">
         <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
@@ -115,10 +115,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Border HorizontalAlignment="Left" Margin="540,385,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="540,410,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
         </Border>
-        <Border HorizontalAlignment="Left" Margin="665,385,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="665,410,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
             <Button Content="Submit" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="SubmitButtonClicked"/>
         </Border>
 

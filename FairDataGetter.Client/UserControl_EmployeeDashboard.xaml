@@ -5,8 +5,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FairDataGetter.Client"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="500" d:DesignWidth="800">
+    <Grid Background="Gray">
+        <TextBox Text="Employee Dashboard" Background="Transparent" TextAlignment="Left" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56" FontWeight="Bold"/>
+
+        <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12.5,50,0,0" Height="430"  Width="775" CornerRadius="4" Background="LightGray"/>
+
+
+        <Label Content="Total customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,70,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="TotalCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="190,70,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="TotalCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        </Border>
+        <Label Content="Total corporate customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,105,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="TotalCorporateCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="190,105,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="TotalCorporateCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        </Border>
+
+        <Label Content="Local customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,70,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="LocalCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,70,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="LocalCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        </Border>
+        <Label Content="Local corporate customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,105,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="LocalCorporateCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,105,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="LocaleCorporateCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        </Border>
+        <Label Content="Last remote update:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,140,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="LastRemoteUpdateBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,140,0,0" VerticalAlignment="Top" Width="100" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBlock Name ="LastRemoteUpdateTextblock" Text="{Binding YourDateTimeProperty, StringFormat='{}{0:MM/dd/yyyy hh:mm tt}'}" IsEnabled="False" TextWrapping="Wrap" Background="Transparent"/>
+        </Border>
+
+        <Label Content="Locally stored customer data:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,175,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,200,0,0" Width="750" Height="200" BorderBrush="Black" BorderThickness="1" Background="White">
+            <DataGrid Name="LocalCustomerDataGrid" AutoGenerateColumns="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" Margin="0">
+                <!-- Data will be dynamically bound in the code-behind -->
+            </DataGrid>
+        </Border>
+
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="670,440,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
+        </Border>
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="630,70,0,0" Width="150"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
+            <Button Content="Update Remote Database" Background="Transparent" Width="150" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="UpdateButtonClicked"/>
+        </Border>
     </Grid>
 </UserControl>
