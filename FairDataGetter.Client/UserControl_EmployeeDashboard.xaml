@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800">
     <Grid Background="Gray">
-        <TextBox Text="Employee Dashboard" Background="Transparent" TextAlignment="Left" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56" FontWeight="Bold"/>
+        <Label Content="Employee Dashboard" Background="Transparent" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56" FontWeight="Bold"/>
 
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12.5,50,0,0" Height="430"  Width="775" CornerRadius="4" Background="LightGray"/>
 
@@ -16,8 +16,8 @@
         <Border  Name="TotalCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="190,70,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <TextBox Name="TotalCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
-        <Label Content="Total corporate customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,105,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border  Name="TotalCorporateCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="190,105,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+        <Label Content="Total corporate customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,100,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="TotalCorporateCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="190,100,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <TextBox Name="TotalCorporateCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
 
@@ -25,23 +25,67 @@
         <Border  Name="LocalCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,70,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <TextBox Name="LocalCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
-        <Label Content="Local corporate customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,105,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border  Name="LocalCorporateCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,105,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="LocaleCorporateCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
+        <Label Content="Local corporate customers:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,100,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="LocalCorporateCustomersBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,100,0,0" VerticalAlignment="Top" Width="50" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBox Name="LocalCorporateCustomersTextbox" IsEnabled="False" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0"/>
         </Border>
-        <Label Content="Last remote update:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,140,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border  Name="LastRemoteUpdateBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,140,0,0" VerticalAlignment="Top" Width="100" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBlock Name ="LastRemoteUpdateTextblock" Text="{Binding YourDateTimeProperty, StringFormat='{}{0:MM/dd/yyyy hh:mm tt}'}" IsEnabled="False" TextWrapping="Wrap" Background="Transparent"/>
+        <Label Content="Last remote update:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="350,130,0,0" VerticalAlignment="Top" FontSize="12"/>
+        <Border  Name="LastRemoteUpdateBorder" IsEnabled="False" HorizontalAlignment="Left" Margin="515,130,0,0" VerticalAlignment="Top" Width="100" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+            <TextBlock Name ="LastRemoteUpdateTextblock" Text="None" IsEnabled="False" TextWrapping="Wrap" Background="Transparent"/>
         </Border>
 
-        <Label Content="Locally stored customer data:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="25,175,0,0" VerticalAlignment="Top" FontSize="12"/>
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,200,0,0" Width="750" Height="200" BorderBrush="Black" BorderThickness="1" Background="White">
+        <Label Content="Filter for Customer" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="20,150,0,0" VerticalAlignment="Top" FontSize="10"/>
+
+        <Label Content="First Name" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="20,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="FirstNameFilterTextBox" Margin="25,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Last Name" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="105,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="LastNameFilterTextBox" Margin="110,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        
+        <Label Content="Email" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="190,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="EmailFilterTextBox" Margin="195,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Street" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="275,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="AddressFilterTextBox" Margin="280,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <TextBox Name="HouseNumberFilterTextBox" Margin="365,180,0,0" Width="40" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Postal" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="405,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="PostalCodeFilterTextBox" Margin="410,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="City" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="490,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CityFilterTextBox" Margin="495,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Country" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="575,160,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CountryFilterTextBox" Margin="580,180,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Filter for Company" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="20,210,0,0" VerticalAlignment="Top" FontSize="10"/>
+
+        <Label Content="Company Name" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="20,220,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CompanyNameFilterTextBox" Margin="25,240,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Street" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="105,220,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CompanyAddressFilterTextBox" Margin="110,240,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <TextBox Name="CompanyHouseNumberFilterTextBox" Margin="195,240,0,0" Width="50" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Postal" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="245,220,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CompanyPostalCodeFilterTextBox" Margin="250,240,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="City" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="330,220,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CompanyCityFilterTextBox" Margin="335,240,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <Label Content="Country" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="415,220,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <TextBox Name="CompanyCountryFilterTextBox" Margin="420,240,0,0" Width="80" Height="25" TextChanged="FilterDataGrid" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,270,0,0" Width="750" Height="170" BorderBrush="Black" BorderThickness="1" Background="White">
             <DataGrid Name="LocalCustomerDataGrid" AutoGenerateColumns="True" HeadersVisibility="Column" AlternatingRowBackground="LightGray" Margin="0">
                 <!-- Data will be dynamically bound in the code-behind -->
             </DataGrid>
         </Border>
 
-        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="670,440,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
+        <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="670,445,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
             <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
         </Border>
         <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="630,70,0,0" Width="150"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">

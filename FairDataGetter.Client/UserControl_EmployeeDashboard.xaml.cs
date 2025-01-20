@@ -21,10 +21,17 @@ namespace FairDataGetter.Client
     public partial class UserControl_EmployeeDashboard : UserControl
     {
         private List<ExportData> localCustomerData;
+        private List<ExportData> filteredLocalCustomerData;
 
         public UserControl_EmployeeDashboard()
         {
             InitializeComponent();
+            this.Loaded += UserControl_EmployeeDashboard_Loaded;
+        }
+
+        private async void UserControl_EmployeeDashboard_Loaded(object sender, RoutedEventArgs e)
+        {
+            await CountCustomersFromApiAsync("https://localhost:7126/api/Customers");
             LoadJsonData();
         }
 
@@ -50,6 +57,13 @@ namespace FairDataGetter.Client
 
                 // Deserialize JSON into a list of customers
                 localCustomerData = JsonConvert.DeserializeObject<List<ExportData>>(jsonData);
+
+
+                int localTotalCustomerCount = localCustomerData.Count();
+                LocalCustomersTextbox.Text = localTotalCustomerCount.ToString();
+
+                int localCorporateCustomerCount = localCustomerData.Count(c => c.Company != null);
+                LocalCorporateCustomersTextbox.Text = localCorporateCustomerCount.ToString();
 
                 var displayData = localCustomerData.Select(c => new
                 {
@@ -83,6 +97,50 @@ namespace FairDataGetter.Client
             }
         }
 
+        public async Task CountCustomersFromApiAsync(string apiUrl)
+        {
+            try
+            {
+                // Create an HttpClient instance
+                using (var httpClient = new HttpClient())
+                {
+                    // Send GET request to the API
+                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+
+                    // Ensure a successful response
+                    response.EnsureSuccessStatusCode();
+
+                    // Read the response content as a string
+                    string responseData = await response.Content.ReadAsStringAsync();
+
+                    // Print the response data in the debug output
+                    Debug.WriteLine("Response Data: ");
+                    Debug.WriteLine(responseData); // This prints the response in the debug console
+
+                    // Deserialize the JSON response into a list of dynamic objects
+                    var customers = JsonConvert.DeserializeObject<List<dynamic>>(responseData);
+
+                    // Count total customers (all customers are counted)
+                    int totalCustomerCount = customers.Count();
+
+                    // Count corporate customers (those with non-null and non-zero CompanyId)
+                    int corporateCustomerCount = customers.Count(c =>
+                        c.companyId != null && (int)c.companyId != 0); // Ensure we're checking against the nullable integer
+
+                    // Display the counts in the respective TextBoxes
+                    TotalCustomersTextbox.Text = totalCustomerCount.ToString(); // Total customers count
+                    TotalCorporateCustomersTextbox.Text = corporateCustomerCount.ToString(); // Corporate customers count
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors (e.g., network issues, deserialization errors)
+                MessageBox.Show($"Error fetching data: {ex.Message}", "API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
         {
             MainWindow.UpdateView(new UserControl_CustomerData());
@@ -102,6 +160,15 @@ namespace FairDataGetter.Client
 
                 await SendCustomerAsync(customerData.Customer, companyId);
             }
+
+            // Get the current date and time
+            DateTime currentDateTime = DateTime.Now;
+
+            // Format the date and time as YYYY-MM-DD HH:mm
+            string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm");
+
+            // Display the formatted date and time in the TextBox
+            LastRemoteUpdateTextblock.Text = formattedDateTime;
         }
 
         private async Task<int> SendCompanyAsync(Company company)
@@ -167,7 +234,7 @@ namespace FairDataGetter.Client
 
         private async Task<int> SendCustomerAsync(Customer customer, int? companyId = null)
         {
-            string customerAPI = "https://localhost:7126/api/Customers";  // Update this with your actual API endpoint
+            string customerAPI = "https://localhost:7126/api/Customers"; 
 
             if (customer == null || customer.Address == null)
             {
@@ -248,6 +315,66 @@ namespace FairDataGetter.Client
                 }
             }
         }
+        private void FilterDataGrid(object sender, TextChangedEventArgs e)
+        {
+            // Get the filter values from the TextBoxes
+            string firstNameFilter = FirstNameFilterTextBox.Text.ToLower();
+            string lastNameFilter = LastNameFilterTextBox.Text.ToLower();
+            string emailFilter = EmailFilterTextBox.Text.ToLower();
+            string streetFilter = AddressFilterTextBox.Text.ToLower();
+            string houseNumberFilter = HouseNumberFilterTextBox.Text.ToLower();
+            string postalCodeFilter = PostalCodeFilterTextBox.Text.ToLower();
+            string cityFilter = CityFilterTextBox.Text.ToLower();
+            string countryFilter = CountryFilterTextBox.Text.ToLower();
+
+            string companyNameFilter = CompanyNameFilterTextBox.Text.ToLower();
+            string companyStreetFilter = CompanyAddressFilterTextBox.Text.ToLower();
+            string companyHouseNumberFilter = CompanyHouseNumberFilterTextBox.Text.ToLower();
+            string companyPostalCodeFilter = CompanyPostalCodeFilterTextBox.Text.ToLower();
+            string companyCityFilter = CompanyCityFilterTextBox.Text.ToLower();
+            string companyCountryFilter = CompanyCountryFilterTextBox.Text.ToLower();
+
+            // Apply filters to the localCustomerData
+            var filteredData = localCustomerData.Select(c => new
+            {
+                FirstName = c.Customer.FirstName,
+                LastName = c.Customer.LastName,
+                Email = c.Customer.Email,
+                Street = c.Customer.Address.Street,
+                HouseNumber = c.Customer.Address.HouseNumber,
+                City = c.Customer.Address.City,
+                PostalCode = c.Customer.Address.PostalCode,
+                Country = c.Customer.Address.Country,
+                InterestedProductGroups = string.Join(", ", c.Customer.InterestedProductGroups.Select(p => p.Name)),
+                CompanyName = c.Company?.Name ?? "",
+                CompanyStreet = c.Company?.Address?.Street ?? "",
+                CompanyHouseNumber = c.Company?.Address?.HouseNumber ?? "",
+                CompanyCity = c.Company?.Address?.City ?? "",
+                CompanyPostalCode = c.Company?.Address?.PostalCode ?? "",
+                CompanyCountry = c.Company?.Address?.Country ?? ""
+            })
+            .Where(item =>
+                (string.IsNullOrEmpty(firstNameFilter) || item.FirstName.ToLower().Contains(firstNameFilter)) &&
+                (string.IsNullOrEmpty(lastNameFilter) || item.LastName.ToLower().Contains(lastNameFilter)) &&
+                (string.IsNullOrEmpty(emailFilter) || item.Email.ToLower().Contains(emailFilter)) &&
+                (string.IsNullOrEmpty(streetFilter) || item.Street.ToLower().Contains(streetFilter)) &&
+                (string.IsNullOrEmpty(houseNumberFilter) || item.HouseNumber.ToLower().Contains(houseNumberFilter)) &&
+                (string.IsNullOrEmpty(postalCodeFilter) || item.PostalCode.ToLower().Contains(postalCodeFilter)) &&
+                (string.IsNullOrEmpty(cityFilter) || item.City.ToLower().Contains(cityFilter)) &&
+                (string.IsNullOrEmpty(countryFilter) || item.Country.ToLower().Contains(countryFilter)) &&
+                (string.IsNullOrEmpty(companyNameFilter) || item.CompanyName.ToLower().Contains(companyNameFilter)) &&
+                (string.IsNullOrEmpty(companyStreetFilter) || item.CompanyStreet.ToLower().Contains(companyStreetFilter)) &&
+                (string.IsNullOrEmpty(companyHouseNumberFilter) || item.CompanyHouseNumber.ToLower().Contains(companyHouseNumberFilter)) &&
+                (string.IsNullOrEmpty(companyPostalCodeFilter) || item.CompanyPostalCode.ToLower().Contains(companyPostalCodeFilter)) &&
+                (string.IsNullOrEmpty(companyCityFilter) || item.CompanyCity.ToLower().Contains(companyCityFilter)) &&
+                (string.IsNullOrEmpty(companyCountryFilter) || item.CompanyCountry.ToLower().Contains(companyCountryFilter))
+            )
+            .ToList();
+
+            // Bind the filtered data to the DataGrid
+            LocalCustomerDataGrid.ItemsSource = filteredData;
+        }
+
 
     }
 }
