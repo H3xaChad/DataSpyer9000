@@ -28,21 +28,27 @@ namespace FairDataGetter.Server.Controllers {
 
         // POST: api/Address
         [HttpPost]
-        public async Task<ActionResult<Address>> PostAddress([FromBody] Address address) {
+        public async Task<ActionResult<Address>> PostAddress([FromBody] Address address)
+        {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Optional: Check for duplicate addresses based on key fields
-            bool exists = await context.Addresses.AnyAsync(a =>
-                a.Street.Equals(address.Street, StringComparison.OrdinalIgnoreCase) &&
-                a.HouseNumber.Equals(address.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
-                a.City.Equals(address.City, StringComparison.OrdinalIgnoreCase) &&
-                a.PostalCode.Equals(address.PostalCode, StringComparison.OrdinalIgnoreCase) &&
-                a.Country.Equals(address.Country, StringComparison.OrdinalIgnoreCase));
+            // Check for duplicate addresses based on key fields
+            var existingAddress = await context.Addresses
+                .FirstOrDefaultAsync(a =>
+                    a.Street.ToLower() == address.Street.ToLower() &&
+                    a.HouseNumber.ToLower() == address.HouseNumber.ToLower() &&
+                    a.City.ToLower() == address.City.ToLower() &&
+                    a.PostalCode.ToLower() == address.PostalCode.ToLower() &&
+                    a.Country.ToLower() == address.Country.ToLower());
 
-            if (exists)
-                return Conflict("An Address with the same details already exists.");
+            if (existingAddress != null)
+            {
+                // Return the ID of the existing address
+                return Conflict(new { message = "An Address with the same details already exists.", existingAddressId = existingAddress.Id });
+            }
 
+            // Add the new address if no match is found
             context.Addresses.Add(address);
             await context.SaveChangesAsync();
 

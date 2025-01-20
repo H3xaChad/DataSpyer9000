@@ -22,9 +22,13 @@ namespace FairDataGetter.Server.Models {
         public required string ImagePath { get; set; }
 
         [Required]
-        public required Address Address { get; set; }
+        public int AddressId { get; set; }
 
         [Required]
-        public required ICollection<ProductGroup> InterestedProductGroups { get; set; } = [];
+        public required ICollection<ProductGroup> InterestedProductGroups { get; set; } = new List<ProductGroup>();
+
+        // Foreign key to Company (Customer can belong to one Company or none)
+        public int? CompanyId { get; set; }
+
     }
 }

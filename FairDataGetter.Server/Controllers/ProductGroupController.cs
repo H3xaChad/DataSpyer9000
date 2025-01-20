@@ -28,22 +28,38 @@ namespace FairDataGetter.Server.Controllers {
 
         // POST: api/ProductGroups
         [HttpPost]
-        public async Task<ActionResult<ProductGroup>> PostProductGroup([FromBody] ProductGroup productGroup) {
+        public async Task<ActionResult<IEnumerable<ProductGroup>>> PostProductGroup([FromBody] ProductGroup productGroup)
+        {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Check if a ProductGroup with the same name already exists
-            bool exists = await context.ProductGroups
-                .AnyAsync(pg => pg.Name.Equals(productGroup.Name, StringComparison.OrdinalIgnoreCase));
+            // Check if the provided name contains multiple entries
+            var names = productGroup.Name.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-            if (exists)
-                return Conflict("A ProductGroup with the same name already exists.");
+            var createdGroups = new List<ProductGroup>();
 
-            context.ProductGroups.Add(productGroup);
-            await context.SaveChangesAsync();
+            foreach (var name in names)
+            {
+                // Check if a ProductGroup with the same name already exists
+                bool exists = await context.ProductGroups
+                    .AnyAsync(pg => pg.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
 
-            return CreatedAtAction(nameof(GetProductGroup), new { id = productGroup.Id }, productGroup);
+                if (!exists)
+                {
+                    // Create a new ProductGroup
+                    var newProductGroup = new ProductGroup { Name = name };
+                    context.ProductGroups.Add(newProductGroup);
+                    createdGroups.Add(newProductGroup);
+                }
+            }
+
+            // Save changes only once for performance
+            if (createdGroups.Any())
+                await context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetProductGroups), createdGroups);
         }
+
 
         // PUT and DELETE methods here
     }

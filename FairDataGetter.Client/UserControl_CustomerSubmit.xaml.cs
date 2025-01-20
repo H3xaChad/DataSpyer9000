@@ -181,28 +181,22 @@ namespace FairDataGetter.Client
 
         private int GetNextCustomerId(List<ExportData> existingCustomerData)
         {
-            // Check if the list is empty. If empty, return 1, else get the max ID + 1
-            if (existingCustomerData.Count == 0)
-            {
-                return 0; // Start with 1 if there are no existing customers
-            }
-
+            // Get the max ID from the existing data, or return 1 if none exist
             return existingCustomerData
-                .Where(c => c.Customer != null)  // Only include entries with Customer data
-                .Max(c => c.Customer.Id) + 1;    // Get max Id and add 1
+                .Where(c => c.Customer != null)
+                .Select(c => c.Customer.Id)
+                .DefaultIfEmpty(0) // Provide a default value for an empty sequence
+                .Max() + 1;
         }
 
         private int GetNextCompanyId(List<ExportData> existingCustomerData)
         {
-            // Check if the list is empty. If empty, return 1, else get the max ID + 1
-            if (existingCustomerData.Count == 0)
-            {
-                return 0; // Start with 1 if there are no existing companies
-            }
-
+            // Get the max ID from the existing data, or return 1 if none exist
             return existingCustomerData
-                .Where(c => c.Company != null)   // Only include entries with Company data
-                .Max(c => c.Company.Id) + 1;     // Get max Id and add 1
+                .Where(c => c.Company != null)
+                .Select(c => c.Company.Id)
+                .DefaultIfEmpty(0) // Provide a default value for an empty sequence
+                .Max() + 1;
         }
     }
 }

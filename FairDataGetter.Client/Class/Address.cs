@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FairDataGetter.Client.Class
+﻿namespace FairDataGetter.Client.Class
 {
     public class Address
     {
@@ -14,37 +8,5 @@ namespace FairDataGetter.Client.Class
         public required string City { get; set; }
         public required string PostalCode { get; set; }
         public required string Country { get; set; }
-    }
-
-    public class Company
-    {
-        public int Id { get; set; }
-        public required string Name { get; set; }
-        public required Address Address { get; set; }
-    }
-
-    public class ProductGroup
-    {
-        public int Id { get; set; }
-        public required string Name { get; set; }
-    }
-
-    public class Customer
-    {
-        public int Id { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public required string Email { get; set; }
-        public required string ImageBase64 { get; set; }
-        public required Address Address { get; set; }
-        public List<ProductGroup> InterestedProductGroups { get; set; }
-        public required bool IsCorporateCustomer { get; set; }
-
-    }
-
-    public class ExportData
-    {
-        public Customer Customer { get; set; }
-        public Company Company { get; set; }
     }
 }

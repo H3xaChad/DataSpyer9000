@@ -28,28 +28,28 @@
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="380" Margin="25,106,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
         <Border HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerFirstNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="First Name" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerFirstNameTextbox" Text="First Name" TextWrapping="Wrap" VerticalContentAlignment="Center" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="First Name"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,155,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerLastNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Last Name" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerLastNameTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Last Name" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Last Name"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,190,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerEmailTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Email address" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerEmailTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Email address" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Email address"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,225,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerAddressTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Address" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerAddressTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Address" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Address"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,260,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerHouseNumberTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="House Number" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerHouseNumberTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="House Number" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="House Number"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,295,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerPostalCodeTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Postal Code" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerPostalCodeTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Postal Code" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Postal Code"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,330,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerCityTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="City" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerCityTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="City" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="City"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="50,365,0,0" VerticalAlignment="Top" Width="250" Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <TextBox Name="CustomerCountryTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Country" Background="Transparent" BorderThickness="0"/>
+            <TextBox Name="CustomerCountryTextbox" TextWrapping="Wrap" VerticalContentAlignment="Center" Text="Country" Background="Transparent" BorderThickness="0" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" Tag="Country"/>
         </Border>
 
         <Label Content="Are you a corporate customer?" HorizontalAlignment="Left" Margin="50,400,0,0" VerticalAlignment="Top"/>
@@ -60,7 +60,7 @@
             <Button Content="Employee Login" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="LoginButtonClicked"/>
         </Border>
         <Border HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,450,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
-            <Button Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
+            <Button Name="ContinueButton" Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
         </Border>
     </Grid>
 </UserControl>

@@ -120,5 +120,23 @@ namespace FairDataGetter.Client
         {
             MainWindow.UpdateView(new UserControl_EmployeeLogin());
         }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && textBox.Text == textBox.Tag.ToString())  // Check if the text matches placeholder
+            {
+                textBox.Clear();  // Clear the placeholder text
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = textBox.Tag.ToString();  // Reset to placeholder text if empty
+            }
+        }
     }
 }

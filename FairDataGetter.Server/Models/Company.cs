@@ -10,6 +10,7 @@ namespace FairDataGetter.Server.Models {
         public required string Name { get; set; }
 
         [Required]
-        public required Address Address { get; set; }
+        public int AddressId { get; set; }
+
     }
 }
