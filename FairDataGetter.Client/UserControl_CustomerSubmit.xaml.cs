@@ -1,5 +1,5 @@
 ﻿using FairDataGetter.Client.Class;
-using System.Drawing;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,6 +38,7 @@ namespace FairDataGetter.Client
 
             CustomerFirstNameTextbox.Text = newCustomer.FirstName;
             CustomerLastNameTextbox.Text = newCustomer.LastName;
+            CustomerEmailTextbox.Text = newCustomer.Email;
             CustomerAddressTextbox.Text = newCustomer.Address.Street;
             CustomerHouseNumberTextbox.Text = newCustomer.Address.HouseNumber;
             CustomerPostalCodeTextbox.Text = newCustomer.Address.PostalCode;
@@ -89,6 +90,79 @@ namespace FairDataGetter.Client
             }
         }
 
+        private bool ValidateCustomerData(Customer customer, Company company = null)
+        {
+            // Create an array of tuples with name, content, and length constraints
+            var fieldsToValidate = new List<(string fieldName, string fieldContent, (int minLength, int maxLength) lengthRange)>
+            {
+                ("First Name", customer.FirstName, (3, 42)),
+                ("Last Name", customer.LastName, (3, 42)),
+                ("Email", customer.Email, (3, 42)),
+                ("Customer Address", customer.Address.Street, (3, 42)),
+                ("Customer HouseNumber", customer.Address.HouseNumber, (3, 42)),
+                ("Customer City", customer.Address.City, (3, 42)),
+                ("Customer PostalCode", customer.Address.PostalCode, (3, 42)),
+                ("Customer Country", customer.Address.Country, (3, 42))
+            };
+
+            // Validate Textboxes not empty and within length requirment of api
+            foreach (var (name, content, (min, max)) in fieldsToValidate)
+            {
+                if (string.IsNullOrEmpty(content))
+                {
+                    MessageBox.Show($"{name} can not be empty!");
+                    return false;
+                }
+
+                if (content.Length < min || content.Length > max)
+                {
+                    MessageBox.Show($"{name} has to be shorter than {min} and longer than {max}");
+                    return false;
+                }
+            }
+
+            // Validate Customer mail
+            var emailAddress = new EmailAddressAttribute();
+            if (!emailAddress.IsValid(customer.Email))
+            {
+                MessageBox.Show($"The email address: '{customer.Email}' is not valid! Please enter a valid mail address");
+                return false;
+            }
+
+            // Validate Company if present
+            if (company != null)
+            {
+                fieldsToValidate = new List<(string fieldName, string fieldContent, (int minLength, int maxLength) lengthRange)>
+                {
+                    ("Company Name", company.Name, (3, 42)),
+                    ("Company Address", company.Address.Street, (3, 42)),
+                    ("Company HouseNumber", company.Address.HouseNumber, (3, 42)),
+                    ("Company City", company.Address.City, (3, 42)),
+                    ("Company PostalCode", company.Address.PostalCode, (3, 42)),
+                    ("Company Country", company.Address.Country, (3, 42))
+                };
+
+                // Validate Textboxes not empty and within length requirment of api
+                foreach (var (name, content, (min, max)) in fieldsToValidate)
+                {
+                    if (string.IsNullOrEmpty(content))
+                    {
+                        MessageBox.Show($"{name} can not be empty!");
+                        return false;
+                    }
+
+                    if (content.Length < min || content.Length > max)
+                    {
+                        MessageBox.Show($"{name} has to be shorter than {min} and longer than {max}");
+                        return false;
+                    }
+                }
+            }
+
+            // Return true, if all checks passed
+            return true;
+        }
+
         // Submit
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
@@ -118,6 +192,7 @@ namespace FairDataGetter.Client
                 // Get current data from customer textboxes
                 newCustomer.FirstName = CustomerFirstNameTextbox.Text;
                 newCustomer.LastName = CustomerLastNameTextbox.Text;
+                newCustomer.Email = CustomerEmailTextbox.Text;
                 newCustomer.Address.Street = CustomerAddressTextbox.Text;
                 newCustomer.Address.HouseNumber = CustomerHouseNumberTextbox.Text;
                 newCustomer.Address.PostalCode = CustomerPostalCodeTextbox.Text;
@@ -135,26 +210,30 @@ namespace FairDataGetter.Client
                      newCompany.Address.Country = CompanyCountryTextbox.Text;
                 }
 
-                // Create export data
-                ExportData newCustomerData = new ExportData();
-                newCustomerData.Customer = newCustomer;
-
-                if (newCompany != null)
+                // Validate the data
+                if (ValidateCustomerData(newCustomer, newCompany))
                 {
-                    newCustomerData.Company = newCompany;
+                    // Create export data
+                    ExportData newCustomerData = new ExportData();
+                    newCustomerData.Customer = newCustomer;
+
+                    if (newCompany != null)
+                    {
+                        newCustomerData.Company = newCompany;
+                    }
+
+                    // Add new data to existing data
+                    allCustomerData.Add(newCustomerData);
+
+                    // Serialize and export all data
+                    string exportAllDataJson = JsonConvert.SerializeObject(allCustomerData, Formatting.Indented);
+                    File.WriteAllText(filePath, exportAllDataJson);
+
+                    string message = "Customer successfully added";
+                    MessageBox.Show(message);
+
+                    MainWindow.UpdateView(new UserControl_CustomerData());
                 }
-
-                // Add new data to existing data
-                allCustomerData.Add(newCustomerData);
-
-                // Serialize and export all data
-                string exportAllDataJson = JsonConvert.SerializeObject(allCustomerData, Formatting.Indented);
-                File.WriteAllText(filePath, exportAllDataJson);
-
-                string message = "Customer successfully added";
-                MessageBox.Show(message);
-
-                MainWindow.UpdateView(new UserControl_CustomerData());
             }
             catch(Exception ex) 
             {
