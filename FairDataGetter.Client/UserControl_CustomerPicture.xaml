@@ -13,17 +13,20 @@
         <TextBlock Text="Please take a picture of yourself" TextAlignment="Center" HorizontalAlignment="Left" Margin="25,30,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56"/>
 
         <Rectangle HorizontalAlignment="Left" Height="1" Margin="105,82,0,0" Stroke="Black" VerticalAlignment="Top" Width="135"/>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,70,0,0">
+        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,70,0,0" >
             <TextBlock Text="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,70,0,0">
+        <Border Name="SecondStepBorder" Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,70,0,0">
             <TextBlock Text="2" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,70,0,0">
+        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="160,70,0,0">
             <TextBlock Text="3" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,70,0,0">
+        <Border Width="25" Height="25" Background="LightBlue" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,70,0,0">
             <TextBlock Text="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Border Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,70,0,0">
+            <TextBlock Text="5" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
 
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="350" Margin="25,110,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
@@ -37,10 +40,10 @@
         </Canvas>
 
         <Border HorizontalAlignment="Left" Margin="50,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="DarkSeaGreen">
-            <Button Content="Take Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="TakePictureButtonClicked"/>
+            <Button Name="TakePictureButton" Content="Take Picture" IsEnabled="False" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="TakePictureButtonClicked"/>
         </Border>
         <Border HorizontalAlignment="Left" Margin="200,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="IndianRed">
-            <Button Content="Reset Picture" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ResetPictureButtonClicked"/>
+            <Button Name="ResetPictureButton" Content="Reset Picture" IsEnabled="False" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ResetPictureButtonClicked"/>
         </Border>
 
         <Border HorizontalAlignment="Left" Margin="50,370,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">

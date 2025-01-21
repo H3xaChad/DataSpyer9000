@@ -21,7 +21,7 @@ namespace FairDataGetter.Client
     public partial class UserControl_EmployeeDashboard : UserControl
     {
         private List<ExportData> localCustomerData;
-        private List<ExportData> filteredLocalCustomerData;
+        private List<ExportData> transmittedCustomerData = new List<ExportData>();
 
         public UserControl_EmployeeDashboard()
         {
@@ -48,7 +48,7 @@ namespace FairDataGetter.Client
                 // Check if the file exists
                 if (!File.Exists(jsonFilePath))
                 {
-                    MessageBox.Show($"The file 'data.json' was not found in the Documents folder.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show($"The file 'local_customer_data.json' was not found in the Documents folder.", "File Not Found", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -146,30 +146,86 @@ namespace FairDataGetter.Client
             MainWindow.UpdateView(new UserControl_CustomerData());
         }
 
+        private void ViewRemoteDatabaseButtonClicked(object sender, RoutedEventArgs e)
+        {
+            MainWindow.UpdateView(new UserControl_EmployeeRemoteDatabase());
+        }
+
         private async void UpdateButtonClicked(object sender, RoutedEventArgs e)
         {
+            // Get the path to the Documents folder
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            foreach (ExportData customerData in localCustomerData)
+            // Define the JSON file name
+            string transmittedFilePath = Path.Combine(documentsPath, "transmitted_customer_data.json");
+
+            // Ensure the transmitted JSON file exists
+            if (!File.Exists(transmittedFilePath))
             {
-                int? companyId = null;
-
-                if (customerData.Customer.IsCorporateCustomer)
-                {
-                    companyId = await SendCompanyAsync(customerData.Company);
-                }
-
-                await SendCustomerAsync(customerData.Customer, companyId);
+                File.WriteAllText(transmittedFilePath, "[]"); // Initialize with an empty JSON array
+            }
+            else
+            {
+                // Load the existing transmitted customers data
+                string transmittedJson = File.ReadAllText(transmittedFilePath);
+                transmittedCustomerData = System.Text.Json.JsonSerializer.Deserialize<List<ExportData>>(transmittedJson) ?? new List<ExportData>();
             }
 
-            // Get the current date and time
+            // Iterate over local customer data and process each customer
+            foreach (ExportData customerData in localCustomerData.ToList())
+            {
+                try
+                {
+                    int? companyId = null;
+
+                    // Transmit company data if it's a corporate customer
+                    if (customerData.Customer.IsCorporateCustomer)
+                    {
+                        companyId = await SendCompanyAsync(customerData.Company);
+                    }
+
+                    // Transmit customer data
+                    await SendCustomerAsync(customerData.Customer, companyId);
+
+                    // Debug Output Statements
+                    System.Diagnostics.Debug.WriteLine("****** Output Before Update");
+                    System.Diagnostics.Debug.WriteLine(localCustomerData);
+                    System.Diagnostics.Debug.WriteLine("****** End of Output");
+
+                    // Move the successfully transmitted customer to the transmitted list
+                    transmittedCustomerData.Add(customerData);
+                    localCustomerData.Remove(customerData);
+
+                    // Debug Output Statements
+                    System.Diagnostics.Debug.WriteLine("****** Output After Update");
+                    System.Diagnostics.Debug.WriteLine(localCustomerData);
+                    System.Diagnostics.Debug.WriteLine("****** End of Output");
+
+                    // Save the updated local customer data immediately
+                    string updatedLocalJson = System.Text.Json.JsonSerializer.Serialize(localCustomerData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+                    File.WriteAllText(Path.Combine(documentsPath, "local_customer_data.json"), updatedLocalJson);
+
+                    LoadJsonData();
+                }
+                catch (Exception ex)
+                {
+                    // Log the error or show a message
+                    MessageBox.Show($"Error transmitting customer {customerData.Customer.FirstName} {customerData.Customer.LastName}: {ex.Message}");
+                    // Skip this customer but keep them in the local JSON
+                    continue;
+                }
+            }
+
+            // Save updated transmitted customer data to JSON after the loop
+            string updatedTransmittedJson = System.Text.Json.JsonSerializer.Serialize(transmittedCustomerData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(transmittedFilePath, updatedTransmittedJson);
+
+            // Display the current date and time in the TextBox
             DateTime currentDateTime = DateTime.Now;
-
-            // Format the date and time as YYYY-MM-DD HH:mm
             string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm");
-
-            // Display the formatted date and time in the TextBox
             LastRemoteUpdateTextblock.Text = formattedDateTime;
         }
+
 
         private async Task<int> SendCompanyAsync(Company company)
         {

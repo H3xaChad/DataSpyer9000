@@ -32,6 +32,14 @@ namespace FairDataGetter.Client
             newCompany = company;
 
             InitializeComponent();
+            if (newCompany != null)
+            {
+                SecondStepBorder.Background = System.Windows.Media.Brushes.LightGreen;
+            }
+            else
+            {
+                SecondStepBorder.Background = System.Windows.Media.Brushes.LightGray;
+            }
         }
 
         // Start webcam when the page is loaded
@@ -55,6 +63,7 @@ namespace FairDataGetter.Client
                 // Start the video capture
                 videoSource.Start();
                 isWebcamRunning = true;
+
             }
             catch (Exception ex)
             {
@@ -80,7 +89,16 @@ namespace FairDataGetter.Client
             {
                 // Convert the current frame to a BitmapSource for WPF Image control
                 webCamImage.Source = BitmapToImageSource(currentFrame);
+
+                // Enable the TakePicture and ResetPicture Buttons
+                if (isWebcamRunning)
+                {
+                    TakePictureButton.IsEnabled = true;
+                    ResetPictureButton.IsEnabled = true;
+                }
             });
+
+
         }
 
         // Take a picture when the "Take Picture" button is clicked

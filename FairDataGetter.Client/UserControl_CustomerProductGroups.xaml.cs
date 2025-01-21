@@ -1,6 +1,7 @@
 ﻿using FairDataGetter.Client.Class;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 
 namespace FairDataGetter.Client
@@ -22,6 +23,15 @@ namespace FairDataGetter.Client
             newCompany = company;
 
             InitializeComponent();
+
+            if (newCompany != null)
+            {
+                SecondStepBorder.Background = Brushes.LightGreen;
+            }
+            else
+            {
+                SecondStepBorder.Background = Brushes.LightGray;
+            }
         }
 
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)

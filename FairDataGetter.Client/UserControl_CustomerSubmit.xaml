@@ -11,18 +11,21 @@
         <Image HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" VerticalAlignment="Top" Width="200"/>
         <TextBox Text="Please review your information and submit,&#xD;&#xA;to recieve all of our benefits!" Background="Transparent" TextAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="25,10,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56"/>
 
-        <Rectangle HorizontalAlignment="Left" Height="1" Margin="75,83,0,0" Stroke="Black" VerticalAlignment="Top" Width="135"/>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="50,70,0,0">
-            <TextBlock Text="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Rectangle HorizontalAlignment="Left" Height="1" Margin="105,82,0,0" Stroke="Black" VerticalAlignment="Top" Width="135"/>
+        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,70,0,0" >
+            <TextBlock Text="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="100,70,0,0">
+        <Border Name="SecondStepBorder" Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,70,0,0">
             <TextBlock Text="2" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="150,70,0,0">
+        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="160,70,0,0">
             <TextBlock Text="3" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Border Width="25" Height="25" Background="White" CornerRadius="20" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="200,70,0,0">
+        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="200,70,0,0">
             <TextBlock Text="4" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Border Width="25" Height="25" Background="LightBlue" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="240,70,0,0">
+            <TextBlock Text="5" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
 
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="335" Margin="12.5,105,0,0" Width="775" CornerRadius="4" Background="LightGray"/>

@@ -27,6 +27,15 @@ namespace FairDataGetter.Client
 
             InitializeComponent();
 
+            if (newCompany != null)
+            {
+                SecondStepBorder.Background = System.Windows.Media.Brushes.LightGreen;
+            }
+            else
+            {
+                SecondStepBorder.Background = System.Windows.Media.Brushes.LightGray;
+            }
+
             CustomerFirstNameTextbox.Text = newCustomer.FirstName;
             CustomerLastNameTextbox.Text = newCustomer.LastName;
             CustomerAddressTextbox.Text = newCustomer.Address.Street;
