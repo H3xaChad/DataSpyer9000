@@ -123,9 +123,8 @@ namespace FairDataGetter.Client
                     // Count total customers (all customers are counted)
                     int totalCustomerCount = customers.Count();
 
-                    // Count corporate customers (those with non-null and non-zero CompanyId)
-                    int corporateCustomerCount = customers.Count(c =>
-                        c.companyId != null && (int)c.companyId != 0); // Ensure we're checking against the nullable integer
+                    // Count corporate customers (those with a non-null "company" object)
+                    int corporateCustomerCount = customers.Count(c => c.company != null);
 
                     // Display the counts in the respective TextBoxes
                     TotalCustomersTextbox.Text = totalCustomerCount.ToString(); // Total customers count
@@ -150,7 +149,6 @@ namespace FairDataGetter.Client
         {
             MainWindow.UpdateView(new UserControl_EmployeeRemoteDatabase());
         }
-
         private async void UpdateButtonClicked(object sender, RoutedEventArgs e)
         {
             // Get the path to the Documents folder
@@ -171,13 +169,16 @@ namespace FairDataGetter.Client
                 transmittedCustomerData = System.Text.Json.JsonSerializer.Deserialize<List<ExportData>>(transmittedJson) ?? new List<ExportData>();
             }
 
-            // Iterate over local customer data and process each customer
+            // Create a separate list to track customers to remove
+            var customersToRemove = new List<ExportData>();
+
+            // Iterate over a copy of the local customer data and process each customer
             foreach (ExportData customerData in localCustomerData.ToList())
             {
                 try
                 {
                     int? companyId = null;
-                    
+
                     // Transmit company data if it's a corporate customer
                     if (customerData.Customer.IsCorporateCustomer)
                     {
@@ -192,20 +193,11 @@ namespace FairDataGetter.Client
                     System.Diagnostics.Debug.WriteLine(localCustomerData);
                     System.Diagnostics.Debug.WriteLine("****** End of Output");
 
-                    // Move the successfully transmitted customer to the transmitted list
+                    // Add the successfully transmitted customer to the transmitted list
                     transmittedCustomerData.Add(customerData);
-                    localCustomerData.Remove(customerData);
+                    customersToRemove.Add(customerData);
 
-                    // Debug Output Statements
-                    System.Diagnostics.Debug.WriteLine("****** Output After Update");
-                    System.Diagnostics.Debug.WriteLine(localCustomerData);
-                    System.Diagnostics.Debug.WriteLine("****** End of Output");
-
-                    // Save the updated local customer data immediately
-                    string updatedLocalJson = System.Text.Json.JsonSerializer.Serialize(localCustomerData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
-                    File.WriteAllText(Path.Combine(documentsPath, "local_customer_data.json"), updatedLocalJson);
-
-                    LoadJsonData();
+                    MessageBox.Show($"Customer {customerData.Customer.FirstName} {customerData.Customer.LastName} has been sucessfully created");
                 }
                 catch (Exception ex)
                 {
@@ -216,16 +208,31 @@ namespace FairDataGetter.Client
                 }
             }
 
-            // Save updated transmitted customer data to JSON after the loop
+            // Remove successfully processed customers from local data
+            foreach (var customer in customersToRemove)
+            {
+                localCustomerData.Remove(customer);
+            }
+
+            // Save the updated local customer data immediately
+            string updatedLocalJson = System.Text.Json.JsonSerializer.Serialize(localCustomerData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(Path.Combine(documentsPath, "local_customer_data.json"), updatedLocalJson);
+
+            // Save updated transmitted customer data to JSON
             string updatedTransmittedJson = System.Text.Json.JsonSerializer.Serialize(transmittedCustomerData, new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(transmittedFilePath, updatedTransmittedJson);
+
+            // Refresh the Datagrid
+            LoadJsonData();
+
+            // Refresh the counters
+            await CountCustomersFromApiAsync("http://localhost:5019/api/Customer");
 
             // Display the current date and time in the TextBox
             DateTime currentDateTime = DateTime.Now;
             string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm");
             LastRemoteUpdateTextblock.Text = formattedDateTime;
         }
-
         
         private void FilterDataGrid(object sender, TextChangedEventArgs e)
         {
