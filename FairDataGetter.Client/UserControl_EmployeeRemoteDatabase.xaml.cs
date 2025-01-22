@@ -1,21 +1,10 @@
-﻿using FairDataGetter.Client.Class;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
+using FairDataGetter.Client.Class;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FairDataGetter.Client
 {
@@ -24,12 +13,12 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_EmployeeRemoteDatabase : UserControl
     {
-        List<ExportData> remoteData = new List<ExportData>();
+        List<ExportData> remoteData = [];
 
         public UserControl_EmployeeRemoteDatabase()
         {
             InitializeComponent();
-            LoadApiData();
+            _ = LoadApiData();
         }
 
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
@@ -37,125 +26,54 @@ namespace FairDataGetter.Client
             MainWindow.UpdateView(new UserControl_EmployeeDashboard());
         }
 
-        private async Task LoadApiData()
-        {
-            // Define the API URL (replace with your actual API URL)
-            string apiUrl = "http://localhost:5019/api/Customers";
-
-
-
-            using (HttpClient client = new HttpClient())
-            {
-                try
-                {
-                    // Call the API and get the JSON response
-                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+        private async Task LoadApiData() {
+            const string apiUrl = "http://localhost:5019/api/Customer";
+            using (var client = new HttpClient()) {
+                try {
+                    var response = await client.GetAsync(apiUrl);
                     response.EnsureSuccessStatusCode();
-
-                    // Read the JSON response as a string
-                    string responseData = await response.Content.ReadAsStringAsync();
-
-                    // Deserialize the JSON response into a list of dynamic objects
-                    List<dynamic> importData = JsonConvert.DeserializeObject<List<dynamic>>(responseData);
-
-                    foreach (var data in importData)
-                    {
-                        ExportData customerData = new ExportData();
-
-                        bool corporate = false;
-                        int customerAddressId = data.addressId;
-                        int? customerCompanyId = data.companyId;
-
-                        Address customerAddress = await GetAddressById(customerAddressId);
-
-
-                        if (customerCompanyId != null)
-                        {
-                           (Company company, int companyAddressId) = await GetCompanyById((int)customerCompanyId);
-                            Address companyAddress = await GetAddressById(companyAddressId);
-
-                            company.Address = companyAddress;
-                            customerData.Company = company;
-                            corporate = true;
-                        }
-
-                        var productGroups = JsonConvert.DeserializeObject<List<string>>(data.interestedProductGroups.ToString());
-
-
-                        Customer customer = new Customer()
-                        {
-                            FirstName = data.firstName,
-                            LastName = data.lastName,
-                            ImageBase64 = data.imagePath,
-                            Email = data.email,
-                            Address = customerAddress,
-                            IsCorporateCustomer = corporate,
-                            InterestedProductGroups = productGroups
+                    var responseData = await response.Content.ReadAsStringAsync();
+                    var dataJson = JsonConvert.DeserializeObject<List<dynamic>>(responseData);
+                    if (dataJson == null) return;
+                    foreach (var customerJson in dataJson) {
+                        //Debug.WriteLine($"Customer Json: {customerJson.ToString()}");
+                        var customerData = new ExportData();
+                        var address = new Address() {
+                            Street = customerJson.address.street,
+                            HouseNumber = customerJson.address.houseNumber,
+                            PostalCode = customerJson.address.postalCode,
+                            City = customerJson.address.city,
+                            Country = customerJson.address.country
                         };
-
-                        foreach(var pg in customer.InterestedProductGroups)
-                        {
-                            Debug.WriteLine(pg);
-                        }
-
+                        var customer = new Customer() {
+                            FirstName = customerJson.firstName,
+                            LastName = customerJson.lastName,
+                            ImageBase64 = customerJson.imagePath,
+                            Email = customerJson.email,
+                            Address = address,
+                            IsCorporateCustomer = customerJson.companyId != null,
+                            InterestedProductGroups = ((JArray)customerJson.interestedProductGroups).ToObject<List<string>>() ?? []
+                        };
+                        // var companyAddress = new Address() {
+                        //     Street = customerJson.company.street,
+                        //     HouseNumber = customerJson.company.houseNumber,
+                        //     PostalCode = customerJson.company.postalCode,
+                        //     City = customerJson.company.city,
+                        //     Country = customerJson.company.country
+                        // };
                         customerData.Customer = customer;
-
+                        if (customer.IsCorporateCustomer) {
+                            remoteData.Add(customerJson.company);
+                        }
                         remoteData.Add(customerData);
                     }
-
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error fetching data: {ex.Message}");
+                catch (Exception ex) {
+                    MessageBox.Show($"Error fetching data: {ex.Message} - {ex.Source} - {ex.Data}");
                 }
             }
-
             // Bind the data to the DataGrid
             RemoteCustomerDataGrid.ItemsSource = remoteData;
-        }
-
-        private async Task<Address> GetAddressById(int addressId)
-        {
-            string apiUrl = $"http://localhost:5019/api/Address/{addressId}";
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
-                response.EnsureSuccessStatusCode();
-
-                // Read the JSON response as a string
-                string addressData = await response.Content.ReadAsStringAsync();
-
-                // Deserialize the JSON response into a list of dynamic objects
-                Address customerAddress = JsonConvert.DeserializeObject<Address>(addressData);
-
-                return customerAddress;
-            }
- 
-        }
-
-        private async Task<(Company, Int32)> GetCompanyById(int companyId)
-        {
-            string apiUrl = $"http://localhost:5019/api/Companies/{companyId}";
-
-            using (HttpClient client = new HttpClient())
-            {
-                HttpResponseMessage response = await client.GetAsync(apiUrl);
-                response.EnsureSuccessStatusCode();
-
-                // Read the JSON response as a string
-                string companyData = await response.Content.ReadAsStringAsync();
-
-                dynamic companyRaw = JsonConvert.DeserializeObject<dynamic>(companyData);
-
-                int addressId = companyRaw.addressId;
-
-                // Deserialize the JSON response into a list of dynamic objects
-                Company company = JsonConvert.DeserializeObject<Company>(companyData);
-
-                return (company, addressId);
-            }
-
         }
 
         private void FilterDataGrid(object sender, TextChangedEventArgs e)

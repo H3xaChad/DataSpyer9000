@@ -88,7 +88,9 @@ namespace FairDataGetter.Client
             AddFormData(content, "LastName", customer.LastName);
             AddFormData(content, "Email", customer.Email);
             AddFormData(content, "AddressId", addressId.ToString());
-            AddFormData(content, "InterestedProductGroups", JsonSerializer.Serialize(customer.InterestedProductGroups));
+            foreach (var productGroup in customer.InterestedProductGroups) {
+                AddFormData(content, "InterestedProductGroups", productGroup);
+            }
 
             if (companyId.HasValue)
                 AddFormData(content, "CompanyId", companyId.Value.ToString());

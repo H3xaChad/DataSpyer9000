@@ -9,9 +9,6 @@ using System.Text;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Diagnostics;
-using System.Net;
-using System.ComponentModel;
-using System.Windows.Media.Animation;
 
 namespace FairDataGetter.Client
 {
@@ -76,7 +73,9 @@ namespace FairDataGetter.Client
                     City = c.Customer.Address.City,
                     PostalCode = c.Customer.Address.PostalCode,
                     Country = c.Customer.Address.Country,
-                    InterestedProductGroups = c.Customer.InterestedProductGroups,
+                    InterestedProductGroups = c.Customer.InterestedProductGroups != null
+                        ? string.Join(", ", c.Customer.InterestedProductGroups)
+                        : "None",
                     CompanyName = c.Company?.Name ?? "",
                     CompanyStreet = c.Company?.Address?.Street ?? "",
                     CompanyHouseNumber = c.Company?.Address?.HouseNumber ?? "",

@@ -16,7 +16,6 @@ namespace FairDataGetter.Client
     /// </summary>
     public partial class UserControl_CustomerPicture : UserControl
     {
-
         private Customer newCustomer;
         private Company newCompany;
 
@@ -159,7 +158,7 @@ namespace FairDataGetter.Client
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
-                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Bmp);
+                bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
                 memoryStream.Seek(0, SeekOrigin.Begin);
                 BitmapSource bitmapSource = BitmapFrame.Create(memoryStream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                 return bitmapSource;

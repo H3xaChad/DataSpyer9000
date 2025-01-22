@@ -11,13 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03dff530-f9ab-4837-9cd3-e3b51735680b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/FairDataGetter.Client/ApiPostHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerSubmit.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerSubmit.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/ApiPostHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/ApiPostHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/Class/Customer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeDashboard.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeDashboard.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-shm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-wal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-shm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-wal" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +181,7 @@
       <workItem from="1737530450301" duration="13987000" />
       <workItem from="1737555908587" duration="7050000" />
       <workItem from="1737563034418" duration="59000" />
-      <workItem from="1737563187692" duration="9103000" />
+      <workItem from="1737563187692" duration="16018000" />
     </task>
     <servers />
   </component>

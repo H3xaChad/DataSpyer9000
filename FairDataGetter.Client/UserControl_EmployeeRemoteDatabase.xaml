@@ -97,7 +97,7 @@
                                 </ItemsControl>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn> 
 
                     <!-- Company Columns -->
                     <DataGridTextColumn Header="Company Name" Binding="{Binding Company.Name}" />
