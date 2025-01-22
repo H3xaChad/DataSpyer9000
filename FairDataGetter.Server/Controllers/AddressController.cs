@@ -31,7 +31,8 @@ namespace FairDataGetter.Server.Controllers {
         public async Task<ActionResult<Address>> CreateAddress([FromBody] AddressPostDto addressDto) {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            
+            // Check if the address already exists, so we don't create duplicates
             var existingAddress = await context.Addresses
                 .FirstOrDefaultAsync(a =>
                     EF.Functions.Like(a.Street, addressDto.Street) &&

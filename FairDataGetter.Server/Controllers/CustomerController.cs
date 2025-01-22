@@ -63,6 +63,7 @@ namespace FairDataGetter.Server.Controllers {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
+            // List of allowed file extensions for the customer image upload
             var allowedExtensions = new[] { ".png", ".jpg", ".jpeg", ".gif" };
             var fileExtension = Path.GetExtension(customerDto.Image.FileName).ToLowerInvariant();
             if (!allowedExtensions.Contains(fileExtension)) {
@@ -73,6 +74,7 @@ namespace FairDataGetter.Server.Controllers {
             if (address == null) 
                 return BadRequest(new { message = "Address does not exist." });
             
+            // The filename of the uploaded image is a random GUID, together with the file extension
             var imageFileName = $"{Guid.NewGuid()}{fileExtension}";
             var imagePath = Path.Combine(CustomerImageFolder, imageFileName);
             

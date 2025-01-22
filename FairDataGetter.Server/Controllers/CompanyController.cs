@@ -24,6 +24,7 @@ namespace FairDataGetter.Server.Controllers {
             var company = await context.Companies
                 .Include(c => c.Address)
                 .FirstOrDefaultAsync(c => c.Id == id);
+            
             if (company == null)
                 return NotFound();
 

@@ -11,17 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03dff530-f9ab-4837-9cd3-e3b51735680b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/FairDataGetter.Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/FairDataGetter.Client.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/FairDataGetter.Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/FairDataGetter.Server.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/03a7e3fc-1575-476d-9886-bcb94a03e537.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/89209a20-83a4-4cf1-8520-c170bed1ffc6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/9952c6bb-eb93-48c9-b2e1-b34cbbc95bc3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/b97e97df-f0cc-486f-8d31-8f1040279046.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/ccd8f363-be95-45ea-bf9f-0b38510f7f6b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/AddressController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/AddressController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CompanyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CompanyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CustomerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +194,7 @@
       <workItem from="1737563034418" duration="59000" />
       <workItem from="1737563187692" duration="16954000" />
       <workItem from="1737580218490" duration="717000" />
-      <workItem from="1737580977167" duration="5045000" />
+      <workItem from="1737580977167" duration="5602000" />
     </task>
     <servers />
   </component>
