@@ -123,9 +123,8 @@ namespace FairDataGetter.Client
                     // Count total customers (all customers are counted)
                     int totalCustomerCount = customers.Count();
 
-                    // Count corporate customers (those with non-null and non-zero CompanyId)
-                    int corporateCustomerCount = customers.Count(c =>
-                        c.companyId != null && (int)c.companyId != 0); // Ensure we're checking against the nullable integer
+                    // Count corporate customers (those with a non-null "company" object)
+                    int corporateCustomerCount = customers.Count(c => c.company != null);
 
                     // Display the counts in the respective TextBoxes
                     TotalCustomersTextbox.Text = totalCustomerCount.ToString(); // Total customers count

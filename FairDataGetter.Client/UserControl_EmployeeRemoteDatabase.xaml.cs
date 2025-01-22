@@ -18,7 +18,14 @@ namespace FairDataGetter.Client
         public UserControl_EmployeeRemoteDatabase()
         {
             InitializeComponent();
-            _ = LoadApiData();
+
+            this.Loaded += UserControl_EmployeeRemoteDatabase_Loaded;
+        }
+
+        private async void UserControl_EmployeeRemoteDatabase_Loaded(object sender, RoutedEventArgs e)
+        {
+            await CountCustomersFromApiAsync("http://localhost:5019/api/Customer");
+            await LoadApiData();
         }
 
         private void ReturnButtonClicked(object sender, RoutedEventArgs e)
@@ -88,6 +95,47 @@ namespace FairDataGetter.Client
             }
             // Bind the data to the DataGrid
             RemoteCustomerDataGrid.ItemsSource = remoteData;
+        }
+
+        public async Task CountCustomersFromApiAsync(string apiUrl)
+        {
+            try
+            {
+                // Create an HttpClient instance
+                using (var httpClient = new HttpClient())
+                {
+                    // Send GET request to the API
+                    HttpResponseMessage response = await httpClient.GetAsync(apiUrl);
+
+                    // Ensure a successful response
+                    response.EnsureSuccessStatusCode();
+
+                    // Read the response content as a string
+                    string responseData = await response.Content.ReadAsStringAsync();
+
+                    // Print the response data in the debug output
+                    Debug.WriteLine("Response Data: ");
+                    Debug.WriteLine(responseData); // This prints the response in the debug console
+
+                    // Deserialize the JSON response into a list of dynamic objects
+                    var customers = JsonConvert.DeserializeObject<List<dynamic>>(responseData);
+
+                    // Count total customers (all customers are counted)
+                    int totalCustomerCount = customers.Count();
+
+                    // Count corporate customers (those with a non-null "company" object)
+                    int corporateCustomerCount = customers.Count(c => c.company != null);
+
+                    // Display the counts in the respective TextBoxes
+                    TotalCustomersTextbox.Text = totalCustomerCount.ToString(); // Total customers count
+                    TotalCorporateCustomersTextbox.Text = corporateCustomerCount.ToString(); // Corporate customers count
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors (e.g., network issues, deserialization errors)
+                MessageBox.Show($"Error fetching data: {ex.Message}", "API Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void FilterDataGrid(object sender, TextChangedEventArgs e)

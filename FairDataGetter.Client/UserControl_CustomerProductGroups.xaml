@@ -58,7 +58,7 @@
         </StackPanel>
 
         <!-- Navigation Buttons -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50,450,0,0" Width="250" VerticalAlignment="Bottom">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50,330,0,0" Width="250" VerticalAlignment="Top">
             <Button Content="Return" Width="110" Height="25" Background="White" BorderBrush="Gray" Margin="0,0,10,0" Click="ReturnButtonClicked"/>
             <Button Content="Continue" Width="110" Height="25" Background="LightBlue" BorderBrush="Gray" Click="ContinueButtonClicked"/>
         </StackPanel>
