@@ -225,6 +225,9 @@ namespace FairDataGetter.Client
             // Refresh the Datagrid
             LoadJsonData();
 
+            // Refresh the counters
+            await CountCustomersFromApiAsync("http://localhost:5019/api/Customer");
+
             // Display the current date and time in the TextBox
             DateTime currentDateTime = DateTime.Now;
             string formattedDateTime = currentDateTime.ToString("yyyy-MM-dd HH:mm");
