@@ -11,29 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FairDataGetter.Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250120114450_InitalMigration")]
-    partial class InitalMigration
+    [Migration("20250122022544_ConvertGUIDToString")]
+    partial class ConvertGUIDToString
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
-
-            modelBuilder.Entity("CustomerProductGroup", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("InterestedProductGroupsId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("CustomerId", "InterestedProductGroupsId");
-
-                    b.HasIndex("InterestedProductGroupsId");
-
-                    b.ToTable("CustomerProductGroups", (string)null);
-                });
 
             modelBuilder.Entity("FairDataGetter.Server.Models.Address", b =>
                 {
@@ -114,7 +99,12 @@ namespace FairDataGetter.Server.Migrations
                         .HasMaxLength(42)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("ImageFileName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InterestedProductGroups")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -125,57 +115,40 @@ namespace FairDataGetter.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("CompanyId");
 
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("FairDataGetter.Server.Models.ProductGroup", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(42)
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductGroups");
-                });
-
-            modelBuilder.Entity("CustomerProductGroup", b =>
-                {
-                    b.HasOne("FairDataGetter.Server.Models.Customer", null)
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FairDataGetter.Server.Models.ProductGroup", null)
-                        .WithMany()
-                        .HasForeignKey("InterestedProductGroupsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FairDataGetter.Server.Models.Company", b =>
                 {
-                    b.HasOne("FairDataGetter.Server.Models.Address", null)
+                    b.HasOne("FairDataGetter.Server.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("FairDataGetter.Server.Models.Customer", b =>
                 {
-                    b.HasOne("FairDataGetter.Server.Models.Company", null)
+                    b.HasOne("FairDataGetter.Server.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FairDataGetter.Server.Models.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Company");
                 });
 #pragma warning restore 612, 618
         }

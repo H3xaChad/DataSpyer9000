@@ -1,12 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using FairDataGetter.Server.Data;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace FairDataGetter.Server.Models {
-    public class Address {
-        
-        [Key]
-        public int Id { get; init; }
+    public class AddressPostDto {
 
         [Required]
         [MaxLength(100)]
@@ -27,5 +25,15 @@ namespace FairDataGetter.Server.Models {
         [Required]
         [MaxLength(50)]
         public required string Country { get; init; }
+        
+        public Address ToAddress() {
+            return new Address {
+                Street = Street,
+                HouseNumber = HouseNumber,
+                City = City,
+                PostalCode = PostalCode,
+                Country = Country
+            };
+        }
     }
 }

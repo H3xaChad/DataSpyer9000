@@ -9,78 +9,49 @@ namespace FairDataGetter.Server.Controllers {
     [ApiController]
     public class AddressController(AppDbContext context) : ControllerBase {
 
-        // GET: api/Addresses
+        // GET: api/Address
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Address>>> GetAddresses() {
-            return await context.Addresses.ToListAsync();
+        public async Task<ActionResult<IEnumerable<Address>>> GetAllAddresses() {
+            var addresses = await context.Addresses.ToListAsync();
+            return Ok(addresses);
         }
 
         // GET: api/Address/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Address>> GetAddress(int id) {
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Address>> GetAddressById(int id) {
             var address = await context.Addresses.FindAsync(id);
-
             if (address == null)
                 return NotFound();
 
-            return address;
+            return Ok(address);
         }
 
         // POST: api/Address
         [HttpPost]
-        public async Task<ActionResult<Address>> PostAddress([FromBody] Address address)
-        {
+        public async Task<ActionResult<Address>> CreateAddress([FromBody] AddressPostDto addressDto) {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            // Check for duplicate addresses based on key fields
             var existingAddress = await context.Addresses
                 .FirstOrDefaultAsync(a =>
-                    a.Street.ToLower() == address.Street.ToLower() &&
-                    a.HouseNumber.ToLower() == address.HouseNumber.ToLower() &&
-                    a.City.ToLower() == address.City.ToLower() &&
-                    a.PostalCode.ToLower() == address.PostalCode.ToLower() &&
-                    a.Country.ToLower() == address.Country.ToLower());
+                    EF.Functions.Like(a.Street, addressDto.Street) &&
+                    EF.Functions.Like(a.HouseNumber, addressDto.HouseNumber) &&
+                    EF.Functions.Like(a.City, addressDto.City) &&
+                    EF.Functions.Like(a.PostalCode, addressDto.PostalCode) &&
+                    EF.Functions.Like(a.Country, addressDto.Country));
 
             if (existingAddress != null)
-            {
-                // Return the ID of the existing address
-                return Conflict(new { message = "An Address with the same details already exists.", existingAddressId = existingAddress.Id });
-            }
+                return Ok(new { message = "Address already exists.", id = existingAddress.Id });
 
-            // Add the new address if no match is found
+            var address = addressDto.ToAddress();
             context.Addresses.Add(address);
             await context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAddress), new { id = address.Id }, address);
-        }
-
-        // PUT: api/Address/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddress(int id, [FromBody] Address address) {
-            if (id != address.Id)
-                return BadRequest("ID mismatch.");
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            context.Entry(address).State = EntityState.Modified;
-
-            try {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException) {
-                if (!AddressExists(id))
-                    return NotFound();
-                else
-                    throw;
-            }
-
-            return NoContent();
+            return CreatedAtAction(nameof(GetAddressById), new { id = address.Id }, address);
         }
 
         // DELETE: api/Address/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteAddress(int id) {
             var address = await context.Addresses.FindAsync(id);
             if (address == null)
@@ -90,10 +61,6 @@ namespace FairDataGetter.Server.Controllers {
             await context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool AddressExists(int id) {
-            return context.Addresses.Any(e => e.Id == id);
         }
     }
 }
