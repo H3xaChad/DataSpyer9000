@@ -12,9 +12,6 @@
   <component name="ChangeListManager">
     <list default="true" id="03dff530-f9ab-4837-9cd3-e3b51735680b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/AddressController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/AddressController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CompanyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CompanyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CustomerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +66,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Project.FairDataGetter.Client">
+  <component name="RunManager" selected=".NET Launch Settings Profile.FairDataGetter.Server: http">
     <configuration name="Publish FairDataGetter.Client to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/FairDataGetter.Client/bin/Release/net8.0-windows/win-x64/publish" target_framework="net8.0-windows" uuid_high="6188456557592988614" uuid_low="-4659543393347893800" />
       <method v="2" />
@@ -194,7 +191,7 @@
       <workItem from="1737563034418" duration="59000" />
       <workItem from="1737563187692" duration="16954000" />
       <workItem from="1737580218490" duration="717000" />
-      <workItem from="1737580977167" duration="5602000" />
+      <workItem from="1737580977167" duration="5761000" />
     </task>
     <servers />
   </component>
