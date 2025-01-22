@@ -94,12 +94,12 @@ namespace FairDataGetter.Client
             // Create an array of tuples with name, content, and length constraints
             var fieldsToValidate = new List<(string fieldName, string fieldContent, (int minLength, int maxLength) lengthRange)>
             {
-                ("First Name", customer.FirstName, (3, 42)),
-                ("Last Name", customer.LastName, (3, 42)),
-                ("Email", customer.Email, (3, 42)),
+                ("First Name", customer.FirstName, (1, 42)),
+                ("Last Name", customer.LastName, (1, 42)),
+                ("Email", customer.Email, (4, 42)),
                 ("Customer Address", customer.Address.Street, (3, 42)),
-                ("Customer HouseNumber", customer.Address.HouseNumber, (3, 42)),
-                ("Customer City", customer.Address.City, (3, 42)),
+                ("Customer HouseNumber", customer.Address.HouseNumber, (1, 42)),
+                ("Customer City", customer.Address.City, (2, 42)),
                 ("Customer PostalCode", customer.Address.PostalCode, (3, 42)),
                 ("Customer Country", customer.Address.Country, (3, 42))
             };

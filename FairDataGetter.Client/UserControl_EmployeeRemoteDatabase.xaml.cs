@@ -40,7 +40,7 @@ namespace FairDataGetter.Client
         private async Task LoadApiData()
         {
             // Define the API URL (replace with your actual API URL)
-            string apiUrl = "https://localhost:7126/api/Customers";
+            string apiUrl = "http://localhost:5019/api/Customers";
 
 
 
@@ -116,7 +116,7 @@ namespace FairDataGetter.Client
 
         private async Task<Address> GetAddressById(int addressId)
         {
-            string apiUrl = $"https://localhost:7126/api/Address/{addressId}";
+            string apiUrl = $"http://localhost:5019/api/Address/{addressId}";
 
             using (HttpClient client = new HttpClient())
             {
@@ -136,7 +136,7 @@ namespace FairDataGetter.Client
 
         private async Task<(Company, Int32)> GetCompanyById(int companyId)
         {
-            string apiUrl = $"https://localhost:7126/api/Companies/{companyId}";
+            string apiUrl = $"http://localhost:5019/api/Companies/{companyId}";
 
             using (HttpClient client = new HttpClient())
             {

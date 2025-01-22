@@ -21,7 +21,8 @@ namespace FairDataGetter.Client
     public partial class UserControl_EmployeeDashboard : UserControl
     {
         private List<ExportData> localCustomerData;
-        private List<ExportData> transmittedCustomerData = new List<ExportData>();
+        private List<ExportData> transmittedCustomerData = [];
+        private ApiPostHandler apiPostHandler = new ApiPostHandler();
 
         public UserControl_EmployeeDashboard()
         {
@@ -31,7 +32,7 @@ namespace FairDataGetter.Client
 
         private async void UserControl_EmployeeDashboard_Loaded(object sender, RoutedEventArgs e)
         {
-            await CountCustomersFromApiAsync("https://localhost:7126/api/Customers");
+            await CountCustomersFromApiAsync("http://localhost:5019/api/Customer");
             LoadJsonData();
         }
 
@@ -177,15 +178,15 @@ namespace FairDataGetter.Client
                 try
                 {
                     int? companyId = null;
-
+                    
                     // Transmit company data if it's a corporate customer
                     if (customerData.Customer.IsCorporateCustomer)
                     {
-                        companyId = await SendCompanyAsync(customerData.Company);
+                        companyId = await apiPostHandler.SendCompanyAsync(customerData.Company);
                     }
 
                     // Transmit customer data
-                    await SendCustomerAsync(customerData.Customer, companyId);
+                    await apiPostHandler.SendCustomerAsync(customerData.Customer, companyId);
 
                     // Debug Output Statements
                     System.Diagnostics.Debug.WriteLine("****** Output Before Update");
@@ -226,149 +227,7 @@ namespace FairDataGetter.Client
             LastRemoteUpdateTextblock.Text = formattedDateTime;
         }
 
-
-        private async Task<int> SendCompanyAsync(Company company)
-        {
-            string companyAPI = "https://localhost:7126/api/Companies";
-
-            if (company == null || company.Address == null)
-            {
-                throw new ArgumentNullException("Company or Address cannot be null.");
-            }
-
-            // Prepare the data to be sent
-            var companyData = new
-            {
-                name = company.Name,
-                address = new
-                {
-                    id = 0,
-                    street = company.Address.Street,
-                    houseNumber = company.Address.HouseNumber,
-                    city = company.Address.City,
-                    postalCode = company.Address.PostalCode,
-                    country = company.Address.Country
-                }
-            };
-
-            // Serialize to JSON (requires System.Text.Json)
-            string jsonData = System.Text.Json.JsonSerializer.Serialize(companyData);
-
-            // Simulate sending the data (e.g., via HTTP POST)
-            using (HttpClient httpClient = new HttpClient())
-            {
-                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-
-                // Send the POST request
-                HttpResponseMessage response = await httpClient.PostAsync(companyAPI, content);
-
-                // Check if the request was successful (status code 2xx)
-                if (response.IsSuccessStatusCode)
-                {
-                    // Read the response content as string
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    // Deserialize the response to get the company ID (expecting JSON in { "Id": 123 })
-                    var responseData = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(responseContent);
-
-                    // Extract the ID from the response JSON
-                    int companyId = responseData.GetProperty("id").GetInt32();
-
-                    // Return the company ID
-                    MessageBox.Show($"Company Id: {companyId}");
-                    return companyId;
-                }
-                else
-                {
-                    // Handle error if the request was unsuccessful
-                    string errorResponse = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error creating company: {errorResponse}");
-                }
-            }
-
-        }
-
-        private async Task<int> SendCustomerAsync(Customer customer, int? companyId = null)
-        {
-            string customerAPI = "https://localhost:7126/api/Customers"; 
-
-            if (customer == null || customer.Address == null)
-            {
-                throw new ArgumentNullException("Customer or Address cannot be null.");
-            }
-
-            using (HttpClient httpClient = new HttpClient())
-            {
-                // Create a MultipartFormDataContent to send the data as form-data
-                var content = new MultipartFormDataContent();
-
-                // Add customer details as form fields
-                content.Add(new StringContent(customer.FirstName), "FirstName");
-                content.Add(new StringContent(customer.LastName), "LastName");
-                content.Add(new StringContent(customer.Email), "Email");
-
-                content.Add(new StringContent("0"), "Address.Id");
-                content.Add(new StringContent(customer.Address.Street), "Address.Street");
-                content.Add(new StringContent(customer.Address.HouseNumber), "Address.HouseNumber");
-                content.Add(new StringContent(customer.Address.City), "Address.City");
-                content.Add(new StringContent(customer.Address.PostalCode), "Address.PostalCode");
-                content.Add(new StringContent(customer.Address.Country), "Address.Country");
-
-                var productGroupNamesJson = System.Text.Json.JsonSerializer.Serialize(
-                    customer.InterestedProductGroups
-                );
-
-                content.Add(new StringContent(productGroupNamesJson, Encoding.UTF8, "application/json"), "InterestedProductGroupNames");
-
-                // Debug Output Statements
-                System.Diagnostics.Debug.WriteLine("****** Output After Customer Data");
-                System.Diagnostics.Debug.WriteLine(productGroupNamesJson);
-                System.Diagnostics.Debug.WriteLine("****** End of Output After Customer Data");
-
-                // Optionally add the companyId to the form data if provided
-                if (companyId.HasValue)
-                {
-                    content.Add(new StringContent(companyId.Value.ToString()), "CompanyId");
-                }
-
-                // Convert Base64 string to byte array
-                byte[] imageBytes = Convert.FromBase64String(customer.ImageBase64);
-
-                // Create ByteArrayContent and set the correct content type
-                var imageContent = new ByteArrayContent(imageBytes);
-                imageContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
-
-                // Add image content to the form data with the field name "Image"
-                content.Add(imageContent, "Image", "image.png"); // "image.png" is the filename in the form
-
-
-                // Send the POST request
-                HttpResponseMessage response = await httpClient.PostAsync(customerAPI, content);
-
-                // Check if the request was successful
-                if (response.IsSuccessStatusCode)
-                {
-                    // Read the response content as string
-                    var responseContent = await response.Content.ReadAsStringAsync();
-
-                    // Deserialize the response to get the customer ID (expecting JSON in { "Id": 123 })
-                    var responseData = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(responseContent);
-
-                    // Extract the ID from the response JSON
-                    int customerId = responseData.GetProperty("id").GetInt32();
-
-                    // Return the customer ID
-                    MessageBox.Show($"Customer Id: {customerId}");
-                    return customerId;
-                }
-                else
-                {
-                    // Handle error if the request was unsuccessful
-                    string errorResponse = await response.Content.ReadAsStringAsync();
-                    throw new Exception($"Error creating customer: {errorResponse}");
-                }
-            }
-        }
+        
         private void FilterDataGrid(object sender, TextChangedEventArgs e)
         {
             // Get the filter values from the TextBoxes
