@@ -38,6 +38,7 @@ namespace FairDataGetter.Client
                     foreach (var customerJson in dataJson) {
                         //Debug.WriteLine($"Customer Json: {customerJson.ToString()}");
                         var customerData = new ExportData();
+
                         var address = new Address() {
                             Street = customerJson.address.street,
                             HouseNumber = customerJson.address.houseNumber,
@@ -45,6 +46,7 @@ namespace FairDataGetter.Client
                             City = customerJson.address.city,
                             Country = customerJson.address.country
                         };
+
                         var customer = new Customer() {
                             FirstName = customerJson.firstName,
                             LastName = customerJson.lastName,
@@ -54,17 +56,29 @@ namespace FairDataGetter.Client
                             IsCorporateCustomer = customerJson.companyId != null,
                             InterestedProductGroups = ((JArray)customerJson.interestedProductGroups).ToObject<List<string>>() ?? []
                         };
-                        // var companyAddress = new Address() {
-                        //     Street = customerJson.company.street,
-                        //     HouseNumber = customerJson.company.houseNumber,
-                        //     PostalCode = customerJson.company.postalCode,
-                        //     City = customerJson.company.city,
-                        //     Country = customerJson.company.country
-                        // };
-                        customerData.Customer = customer;
-                        if (customer.IsCorporateCustomer) {
-                            remoteData.Add(customerJson.company);
+
+                        if (customerJson.company != null)
+                        {
+                            var companyAddress = new Address()
+                            {
+                                Street = customerJson.company.address.street,
+                                HouseNumber = customerJson.company.address.houseNumber,
+                                PostalCode = customerJson.company.address.postalCode,
+                                City = customerJson.company.address.city,
+                                Country = customerJson.company.address.country
+                            };
+
+                            var company = new Company()
+                            {
+                                Name = customerJson.company.name,
+                                Address = companyAddress
+                            };
+
+                            customerData.Company = company;
                         }
+
+                        customerData.Customer = customer;
+
                         remoteData.Add(customerData);
                     }
                 }
