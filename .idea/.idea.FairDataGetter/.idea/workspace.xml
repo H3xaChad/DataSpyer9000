@@ -11,17 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03dff530-f9ab-4837-9cd3-e3b51735680b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/ApiPostHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/ApiPostHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/Class/Customer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/FairDataGetter.Client.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/FairDataGetter.Client.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeDashboard.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeDashboard.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-shm" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-shm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-wal" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-wal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/FairDataGetter.Server.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/FairDataGetter.Server.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/03a7e3fc-1575-476d-9886-bcb94a03e537.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/89209a20-83a4-4cf1-8520-c170bed1ffc6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/9952c6bb-eb93-48c9-b2e1-b34cbbc95bc3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/b97e97df-f0cc-486f-8d31-8f1040279046.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/ccd8f363-be95-45ea-bf9f-0b38510f7f6b.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +58,8 @@
     &quot;.NET Launch Settings Profile.FairDataGetter.Server: http.executor&quot;: &quot;Debug&quot;,
     &quot;.NET Launch Settings Profile.FairDataGetter.Server: https.executor&quot;: &quot;Debug&quot;,
     &quot;.NET Project.FairDataGetter.Client.executor&quot;: &quot;Debug&quot;,
+    &quot;Publish to folder.Publish FairDataGetter.Client to folder.executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish FairDataGetter.Server to folder.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -65,7 +67,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;http.proxy&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -75,10 +77,18 @@
   }
 }</component>
   <component name="RunManager" selected=".NET Project.FairDataGetter.Client">
+    <configuration name="Publish FairDataGetter.Client to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
+      <riderPublish configuration="Release" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/FairDataGetter.Client/bin/Release/net8.0-windows/win-x64/publish" target_framework="net8.0-windows" uuid_high="6188456557592988614" uuid_low="-4659543393347893800" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Publish FairDataGetter.Server to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
+      <riderPublish configuration="Release" platform="Any CPU" produce_single_file="true" ready_to_run="true" runtime="win-x64" self_contained="true" target_folder="$PROJECT_DIR$/FairDataGetter.Server/bin/Release/net8.0/win-x64/publish" target_framework="net8.0" trim_unused_assemblies="true" uuid_high="8129286759533399519" uuid_low="-6132154093273889540" />
+      <method v="2" />
+    </configuration>
     <configuration name="FairDataGetter.Client" type="DotNetProject" factoryName=".NET Project">
-      <option name="EXE_PATH" value="" />
+      <option name="EXE_PATH" value="$PROJECT_DIR$/FairDataGetter.Client/bin/Debug/net8.0-windows/FairDataGetter.Client.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/FairDataGetter.Client/bin/Debug/net8.0-windows" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -88,7 +98,7 @@
       <option name="PROJECT_ARGUMENTS_TRACKING" value="1" />
       <option name="PROJECT_WORKING_DIRECTORY_TRACKING" value="1" />
       <option name="PROJECT_KIND" value="DotNetCore" />
-      <option name="PROJECT_TFM" value="" />
+      <option name="PROJECT_TFM" value="net8.0-windows" />
       <method v="2">
         <option name="Build" />
       </method>
@@ -138,6 +148,14 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.FairDataGetter.Server: http" />
+      <item itemvalue=".NET Launch Settings Profile.FairDataGetter.Server: https" />
+      <item itemvalue=".NET Launch Settings Profile.FairDataGetter.Server: IIS Express" />
+      <item itemvalue=".NET Project.FairDataGetter.Client" />
+      <item itemvalue="Publish to folder.Publish FairDataGetter.Client to folder" />
+      <item itemvalue="Publish to folder.Publish FairDataGetter.Server to folder" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -181,7 +199,9 @@
       <workItem from="1737530450301" duration="13987000" />
       <workItem from="1737555908587" duration="7050000" />
       <workItem from="1737563034418" duration="59000" />
-      <workItem from="1737563187692" duration="16018000" />
+      <workItem from="1737563187692" duration="16954000" />
+      <workItem from="1737580218490" duration="717000" />
+      <workItem from="1737580977167" duration="5045000" />
     </task>
     <servers />
   </component>

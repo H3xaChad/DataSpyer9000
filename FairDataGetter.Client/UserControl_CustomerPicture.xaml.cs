@@ -113,8 +113,8 @@ namespace FairDataGetter.Client
                     // Convert the snapshot to a BitmapSource and display in takenPicture
                     WebCamImage.Source = BitmapToImageSource(customerPicture);
                     StopWebcam();
-                    TakePictureButton.IsEnabled = false;
                     ContinueButton.IsEnabled = true;
+                    TakePictureButton.IsEnabled = false;
                 }
                 catch (Exception ex)
                 {
@@ -126,7 +126,6 @@ namespace FairDataGetter.Client
         // Reset the picture when the "Reset Picture" button is clicked
         private void ResetPictureButtonClicked(object sender, RoutedEventArgs e)
         {
-            TakePictureButton.IsEnabled = false;
             // Restart the webcam feed
             if (!isWebcamRunning)
             {
@@ -135,6 +134,7 @@ namespace FairDataGetter.Client
 
                 // Enable the Take Picture button and disable the Continue button
                 ContinueButton.IsEnabled = false;
+                TakePictureButton.IsEnabled = false;
 
                 // Clear the image to show the live feed
                 WebCamImage.Source = null;
@@ -142,13 +142,11 @@ namespace FairDataGetter.Client
         }
 
         // Stop the webcam when the user navigates away (Return or Continue)
-        private void StopWebcam(bool removeSource = false)
+        private void StopWebcam()
         {
             if (isWebcamRunning)
             {
                 videoSource.SignalToStop();
-                videoSource.WaitForStop();
-                if (removeSource) videoSource = null;
                 isWebcamRunning = false;
             }
         }
@@ -175,7 +173,7 @@ namespace FairDataGetter.Client
         // Handle "Continue" button click
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)
         {
-            StopWebcam(removeSource: true); // Stop the webcam before navigating away
+            StopWebcam(); // Stop the webcam before navigating away
             newCustomer.ImageBase64 = ConvertImageToBase64(customerPicture);
             MainWindow.UpdateView(new UserControl_CustomerSubmit(newCustomer, newCompany));
         }

@@ -11,6 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configure Kestrel to use HTTP only
+builder.WebHost.ConfigureKestrel(options => {
+    options.ListenAnyIP(5019); // HTTP port
+    // options.ListenAnyIP(5001, listenOptions => listenOptions.UseHttps()); // Comment out or remove if HTTPS is not required
+});
+
 var app = builder.Build();
 
 // Apply pending migrations in development
@@ -26,7 +32,7 @@ if (app.Environment.IsDevelopment()) {
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
