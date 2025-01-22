@@ -31,12 +31,8 @@
 
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="350" Margin="25,110,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
-        <Canvas Name="webCamImageCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="70" Width="120" Margin="195,125,0,0">
-            <Image Name="webCamImage" Height="70" Width="120"></Image>
-        </Canvas>
-
-        <Canvas Name="takenPictureCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="200" Width="290" Margin="30,185,0,0">
-            <Image Name="takenPicture" Height="200" Width="290"></Image>
+        <Canvas Name="WebCamImageCanvas" HorizontalAlignment="Left" VerticalAlignment="Top" Height="20" Width="290" Margin="30,185,0,0">
+            <Image Name="WebCamImage" Height="200" Width="290"></Image>
         </Canvas>
 
         <Border HorizontalAlignment="Left" Margin="50,305,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="DarkSeaGreen">

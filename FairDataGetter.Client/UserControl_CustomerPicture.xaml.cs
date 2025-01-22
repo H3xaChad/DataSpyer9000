@@ -88,7 +88,7 @@ namespace FairDataGetter.Client
             Dispatcher.Invoke(() =>
             {
                 // Convert the current frame to a BitmapSource for WPF Image control
-                webCamImage.Source = BitmapToImageSource(currentFrame);
+                WebCamImage.Source = BitmapToImageSource(currentFrame);
 
                 // Enable the TakePicture and ResetPicture Buttons
                 if (isWebcamRunning)
@@ -112,7 +112,9 @@ namespace FairDataGetter.Client
                     customerPicture = (Bitmap)currentFrame.Clone();
 
                     // Convert the snapshot to a BitmapSource and display in takenPicture
-                    takenPicture.Source = BitmapToImageSource(customerPicture);
+                    WebCamImage.Source = BitmapToImageSource(customerPicture);
+                    StopWebcam();
+                    TakePictureButton.IsEnabled = false;
                     ContinueButton.IsEnabled = true;
                 }
                 catch (Exception ex)
@@ -125,18 +127,29 @@ namespace FairDataGetter.Client
         // Reset the picture when the "Reset Picture" button is clicked
         private void ResetPictureButtonClicked(object sender, RoutedEventArgs e)
         {
-            takenPicture.Source = null;
-            ContinueButton.IsEnabled = false;
+            TakePictureButton.IsEnabled = false;
+            // Restart the webcam feed
+            if (!isWebcamRunning)
+            {
+                videoSource.Start();
+                isWebcamRunning = true;
+
+                // Enable the Take Picture button and disable the Continue button
+                ContinueButton.IsEnabled = false;
+
+                // Clear the image to show the live feed
+                WebCamImage.Source = null;
+            }
         }
 
         // Stop the webcam when the user navigates away (Return or Continue)
-        private void StopWebcam()
+        private void StopWebcam(bool removeSource = false)
         {
             if (isWebcamRunning)
             {
                 videoSource.SignalToStop();
                 videoSource.WaitForStop();
-                videoSource = null;
+                if (removeSource) videoSource = null;
                 isWebcamRunning = false;
             }
         }
@@ -163,7 +176,7 @@ namespace FairDataGetter.Client
         // Handle "Continue" button click
         private void ContinueButtonClicked(object sender, RoutedEventArgs e)
         {
-            StopWebcam(); // Stop the webcam before navigating away
+            StopWebcam(removeSource: true); // Stop the webcam before navigating away
             newCustomer.ImageBase64 = ConvertImageToBase64(customerPicture);
             MainWindow.UpdateView(new UserControl_CustomerSubmit(newCustomer, newCompany));
         }

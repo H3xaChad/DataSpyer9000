@@ -75,7 +75,7 @@ namespace FairDataGetter.Client
                     City = c.Customer.Address.City,
                     PostalCode = c.Customer.Address.PostalCode,
                     Country = c.Customer.Address.Country,
-                    InterestedProductGroups = string.Join(", ", c.Customer.InterestedProductGroups.Select(p => p.Name)),
+                    InterestedProductGroups = c.Customer.InterestedProductGroups,
                     CompanyName = c.Company?.Name ?? "",
                     CompanyStreet = c.Company?.Address?.Street ?? "",
                     CompanyHouseNumber = c.Company?.Address?.HouseNumber ?? "",
@@ -315,10 +315,8 @@ namespace FairDataGetter.Client
                 content.Add(new StringContent(customer.Address.Country), "Address.Country");
 
                 var productGroupNamesJson = System.Text.Json.JsonSerializer.Serialize(
-                    customer.InterestedProductGroups.Select(p => p.Name).ToList()
+                    customer.InterestedProductGroups
                 );
-
-                customer.InterestedProductGroups = customer.InterestedProductGroups ?? new List<ProductGroup>();
 
                 content.Add(new StringContent(productGroupNamesJson, Encoding.UTF8, "application/json"), "InterestedProductGroupNames");
 
@@ -401,7 +399,7 @@ namespace FairDataGetter.Client
                 City = c.Customer.Address.City,
                 PostalCode = c.Customer.Address.PostalCode,
                 Country = c.Customer.Address.Country,
-                InterestedProductGroups = string.Join(", ", c.Customer.InterestedProductGroups.Select(p => p.Name)),
+                InterestedProductGroups = c.Customer.InterestedProductGroups,
                 CompanyName = c.Company?.Name ?? "",
                 CompanyStreet = c.Company?.Address?.Street ?? "",
                 CompanyHouseNumber = c.Company?.Address?.HouseNumber ?? "",

@@ -7,10 +7,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="350">
     <Grid Background="DarkGray">
-        <Label Content="Please enter your information &#xD;&#xA;to recieve all our benefits!" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="25,15,0,0" VerticalAlignment="Top" FontSize="15" Width="300" Height="56"/>
+        <Label Content="Please enter your information &#xD;&#xA;to receive all our benefits!"
+               HorizontalContentAlignment="Center"
+               HorizontalAlignment="Left"
+               Margin="25,15,0,0"
+               VerticalAlignment="Top"
+               FontSize="15"
+               Width="300"
+               Height="56"/>
 
         <Rectangle HorizontalAlignment="Left" Height="1" Margin="105,82,0,0" Stroke="Black" VerticalAlignment="Top" Width="135"/>
-        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,70,0,0" >
+        <Border Width="25" Height="25" Background="LightGreen" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,70,0,0">
             <TextBlock Text="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         <Border Name="SecondStepBorder" Width="25" Height="25" Background="White" CornerRadius="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,70,0,0">
@@ -28,27 +35,32 @@
 
         <Border BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="265" Margin="25,106,0,0" VerticalAlignment="Top" Width="300" CornerRadius="4" Background="LightGray"/>
 
-        <Label Content="Which product groups are you interessted in?" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top"/>
+        <Label Content="Which product groups are you interested in?" HorizontalAlignment="Left" Margin="50,120,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
 
-        <CheckBox Name="ProductGroup1" Content="Product Group 1" HorizontalAlignment="Left" Margin="50,170,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="ProductGroup2" Content="Product Group 2" HorizontalAlignment="Left" Margin="190,170,0,0" VerticalAlignment="Top"/>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="50,150,0,0" Width="250">
+            <!-- Input field and Add button -->
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,0,10">
+                <TextBox Name="ProductGroupInput" Width="160" Height="25" VerticalAlignment="Center" Margin="0,0,10,0" />
+                <Button Content="Add" Width="70" Height="25" Background="LightBlue" BorderBrush="Gray" Click="AddProductGroup"/>
+            </StackPanel>
 
-        <CheckBox Name="ProductGroup3" Content="Product Group 3" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="ProductGroup4" Content="Product Group 4" HorizontalAlignment="Left" Margin="190,200,0,0" VerticalAlignment="Top"/>
+            <!-- List of added product groups -->
+            <ListBox Name="ProductGroupList" Width="250" Background="White" BorderBrush="Gray" Margin="0,0,0,10">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <Button Content="Remove" Width="60" Height="20" Background="LightCoral" BorderBrush="Gray" Click="RemoveProductGroup"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
 
-        <CheckBox Name="ProductGroup5" Content="Product Group 5" HorizontalAlignment="Left" Margin="50,230,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="ProductGroup6" Content="Product Group 6" HorizontalAlignment="Left" Margin="190,230,0,0" VerticalAlignment="Top"/>
-
-        <CheckBox Name="ProductGroup7" Content="Product Group 7" HorizontalAlignment="Left" Margin="50,260,0,0" VerticalAlignment="Top"/>
-        <CheckBox Name="ProductGroup8" Content="Product Group 8" HorizontalAlignment="Left" Margin="190,260,0,0" VerticalAlignment="Top"/>
-
-        
-        <Border HorizontalAlignment="Left" Margin="50,200,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="White">
-            <Button Content="Return" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ReturnButtonClicked"/>
-        </Border>
-        <Border HorizontalAlignment="Left" Margin="190,200,0,0" Width="110"  Height="25" CornerRadius="4" BorderBrush="Gray" BorderThickness="1" Background="LightBlue">
-            <Button Content="Continue" Background="Transparent" Width="120" Height="25" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center" Click="ContinueButtonClicked"/>
-        </Border>
-
+        <!-- Navigation Buttons -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50,450,0,0" Width="250" VerticalAlignment="Bottom">
+            <Button Content="Return" Width="110" Height="25" Background="White" BorderBrush="Gray" Margin="0,0,10,0" Click="ReturnButtonClicked"/>
+            <Button Content="Continue" Width="110" Height="25" Background="LightBlue" BorderBrush="Gray" Click="ContinueButtonClicked"/>
+        </StackPanel>
     </Grid>
 </UserControl>

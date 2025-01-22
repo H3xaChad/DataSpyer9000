@@ -79,7 +79,7 @@ namespace FairDataGetter.Client
                             corporate = true;
                         }
 
-                        var productGroups = JsonConvert.DeserializeObject<List<ProductGroup>>(data.interestedProductGroups.ToString());
+                        var productGroups = JsonConvert.DeserializeObject<List<string>>(data.interestedProductGroups.ToString());
 
 
                         Customer customer = new Customer()
@@ -93,9 +93,9 @@ namespace FairDataGetter.Client
                             InterestedProductGroups = productGroups
                         };
 
-                        foreach(ProductGroup pg in customer.InterestedProductGroups)
+                        foreach(var pg in customer.InterestedProductGroups)
                         {
-                            Debug.WriteLine(pg.Name);
+                            Debug.WriteLine(pg);
                         }
 
                         customerData.Customer = customer;

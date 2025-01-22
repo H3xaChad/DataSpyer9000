@@ -11,32 +11,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03dff530-f9ab-4837-9cd3-e3b51735680b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/AddressPostDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/CompanyPostDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/CustomerGetDto.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/CustomerPostDto.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/AddressController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/AddressController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CompanyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CompanyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/dataSources/d5cd8638-8c6e-439b-aa40-be20a0776523.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.FairDataGetter/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/Address.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/Company.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/ConflictResponse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/Customer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/ExportData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Class/ProductGroup.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/Navigation_State_Manger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CorporateData.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CorporateData.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerData.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerData.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerPicture.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerProductGroups.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerProductGroups.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerSubmit.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_CustomerSubmit.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeDashboard.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeDashboard.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeLogin.xaml.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Client/UserControl_EmployeeRemoteDatabase.xaml.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/CustomerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Controllers/ProductGroupController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-shm" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Data/ToBeLeaked.db-wal" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Migrations/20250120114450_InitalMigration.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Migrations/20250120114450_InitalMigration.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Models/Address.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/Address.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Models/Company.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/Company.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Models/Customer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Models/Customer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Models/ProductGroup.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/FairDataGetter.Server/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/14c90a12-44d5-4534-a6c2-7ad2e15d03b9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/419d61c2-cd05-4e79-8b3e-73581657ae45.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/6acacbb8-2b08-4183-a01c-2aca81af5858.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/e4f542ea-dba0-4179-9230-dd846beae36a.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FairDataGetter.Server/Uploads/fe963ee7-2c14-447c-8857-6442dd8d49dc.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +82,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -86,7 +91,7 @@
     ]
   }
 }</component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.FairDataGetter.Server: https">
+  <component name="RunManager" selected=".NET Project.FairDataGetter.Client">
     <configuration name="FairDataGetter.Client" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -186,6 +191,14 @@
       <workItem from="1737501039446" duration="183000" />
       <workItem from="1737501240081" duration="338000" />
       <workItem from="1737501777527" duration="11132000" />
+      <workItem from="1737514241255" duration="544000" />
+      <workItem from="1737514863314" duration="561000" />
+      <workItem from="1737515534817" duration="1530000" />
+      <workItem from="1737528448284" duration="1757000" />
+      <workItem from="1737530450301" duration="13987000" />
+      <workItem from="1737555908587" duration="7050000" />
+      <workItem from="1737563034418" duration="59000" />
+      <workItem from="1737563187692" duration="3047000" />
     </task>
     <servers />
   </component>

@@ -9,7 +9,7 @@ namespace FairDataGetter.Server.Controllers {
     [ApiController]
     public class CustomerController(AppDbContext context) : ControllerBase {
         
-        public const string CustomerImageFolder = "Uploads";
+        private const string CustomerImageFolder = "Uploads";
 
         // GET: api/Customer
         [HttpGet]
@@ -29,6 +29,7 @@ namespace FairDataGetter.Server.Controllers {
                 .Include(c => c.Address)
                 .Include(c => c.Company)
                 .FirstOrDefaultAsync(c => c.Id == id);
+            
             if (customer == null)
                 return NotFound();
 
@@ -41,18 +42,24 @@ namespace FairDataGetter.Server.Controllers {
             var customer = await context.Customers.FindAsync(id);
             if (customer == null)
                 return NotFound();
-
+            
             var imagePath = Path.Combine(CustomerImageFolder, customer.ImageFileName);
             if (!System.IO.File.Exists(imagePath))
                 return NotFound();
-
+            
+            // Dynamically determine the MIME type
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(imagePath, out var contentType)) {
+                contentType = "application/octet-stream"; // Fallback MIME type
+            }
+            
             var image = System.IO.File.OpenRead(imagePath);
-            return File(image, "image/jpeg"); // You may dynamically determine MIME type if needed
+            return File(image, contentType);
         }
 
         // POST: api/Customer
         [HttpPost]
-        public async Task<ActionResult<CustomerGetDto >> CreateCustomer([FromForm] CustomerPostDto customerDto) {
+        public async Task<ActionResult<CustomerGetDto>> CreateCustomer([FromForm] CustomerPostDto customerDto) {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
@@ -61,24 +68,22 @@ namespace FairDataGetter.Server.Controllers {
             if (!allowedExtensions.Contains(fileExtension)) {
                 return BadRequest(new { message = "Invalid image format. Allowed formats are: .png, .jpg, .jpeg, .gif." });
             }
-
+            
             var address = await context.Addresses.FindAsync(customerDto.AddressId);
-            if (address == null)
+            if (address == null) 
                 return BadRequest(new { message = "Address does not exist." });
-
+            
             var imageFileName = $"{Guid.NewGuid()}{fileExtension}";
             var imagePath = Path.Combine(CustomerImageFolder, imageFileName);
-
+            
             await using (var stream = new FileStream(imagePath, FileMode.Create)) {
                 await customerDto.Image.CopyToAsync(stream);
             }
-
+            
             var customer = customerDto.ToCustomer(imageFileName, address);
             context.Customers.Add(customer);
             await context.SaveChangesAsync();
-            
             var customerDtoResponse = CustomerGetDto.FromCustomer(customer);
-
             return CreatedAtAction(nameof(GetCustomerById), new { id = customerDtoResponse.Id }, customerDtoResponse);
         }
 
@@ -86,17 +91,15 @@ namespace FairDataGetter.Server.Controllers {
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteCustomer(int id) {
             var customer = await context.Customers.FindAsync(id);
-            if (customer == null)
+            if (customer == null) 
                 return NotFound();
-
+            
             var imagePath = Path.Combine(CustomerImageFolder, customer.ImageFileName);
-            if (System.IO.File.Exists(imagePath)) {
+            if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
-            }
-
+            
             context.Customers.Remove(customer);
             await context.SaveChangesAsync();
-
             return NoContent();
         }
     }

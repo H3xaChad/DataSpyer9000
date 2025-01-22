@@ -43,8 +43,7 @@ namespace FairDataGetter.Client
         {
             string storedHashedPassword = "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f";
 
-            // return employeeID == "admin" && HashPassword(password) == storedHashedPassword;
-            return true;
+            return employeeID == "admin" && HashPassword(password) == storedHashedPassword;
         }
 
         // Hash password using sha256

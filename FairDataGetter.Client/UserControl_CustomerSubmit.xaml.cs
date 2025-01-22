@@ -86,7 +86,6 @@ namespace FairDataGetter.Client
                 CompanyCityBorder.Background = new SolidColorBrush(Colors.LightGray);
                 CompanyCountryTextbox.IsEnabled = false;
                 CompanyCountryBorder.Background = new SolidColorBrush(Colors.LightGray);
-
             }
         }
 
@@ -134,10 +133,10 @@ namespace FairDataGetter.Client
             {
                 fieldsToValidate = new List<(string fieldName, string fieldContent, (int minLength, int maxLength) lengthRange)>
                 {
-                    ("Company Name", company.Name, (3, 42)),
+                    ("Company Name", company.Name, (2, 42)),
                     ("Company Address", company.Address.Street, (3, 42)),
-                    ("Company HouseNumber", company.Address.HouseNumber, (3, 42)),
-                    ("Company City", company.Address.City, (3, 42)),
+                    ("Company HouseNumber", company.Address.HouseNumber, (1, 42)),
+                    ("Company City", company.Address.City, (2, 42)),
                     ("Company PostalCode", company.Address.PostalCode, (3, 42)),
                     ("Company Country", company.Address.Country, (3, 42))
                 };
@@ -153,7 +152,7 @@ namespace FairDataGetter.Client
 
                     if (content.Length < min || content.Length > max)
                     {
-                        MessageBox.Show($"{name} has to be shorter than {min} and longer than {max}");
+                        MessageBox.Show($"{name} has to be shorter than {max} and longer than {min}");
                         return false;
                     }
                 }
@@ -180,13 +179,6 @@ namespace FairDataGetter.Client
                     // If file exists, read the existing data
                     string importDataJson = File.ReadAllText(filePath);
                     allCustomerData = JsonConvert.DeserializeObject<List<ExportData>>(importDataJson);
-                }
-
-                newCustomer.Id = GetNextCustomerId(allCustomerData);
-
-                if (newCompany != null)
-                {
-                    newCompany.Id = GetNextCompanyId(allCustomerData);
                 }
 
                 // Get current data from customer textboxes
@@ -265,26 +257,6 @@ namespace FairDataGetter.Client
                 Console.WriteLine($"Error converting Base64 to ImageSource: {ex.Message}");
                 return null;
             }
-        }
-
-        private int GetNextCustomerId(List<ExportData> existingCustomerData)
-        {
-            // Get the max ID from the existing data, or return 1 if none exist
-            return existingCustomerData
-                .Where(c => c.Customer != null)
-                .Select(c => c.Customer.Id)
-                .DefaultIfEmpty(0) // Provide a default value for an empty sequence
-                .Max() + 1;
-        }
-
-        private int GetNextCompanyId(List<ExportData> existingCustomerData)
-        {
-            // Get the max ID from the existing data, or return 1 if none exist
-            return existingCustomerData
-                .Where(c => c.Company != null)
-                .Select(c => c.Company.Id)
-                .DefaultIfEmpty(0) // Provide a default value for an empty sequence
-                .Max() + 1;
         }
     }
 }
