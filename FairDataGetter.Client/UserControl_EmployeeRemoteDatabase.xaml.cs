@@ -43,7 +43,7 @@ namespace FairDataGetter.Client
                     var dataJson = JsonConvert.DeserializeObject<List<dynamic>>(responseData);
                     if (dataJson == null) return;
                     foreach (var customerJson in dataJson) {
-                        //Debug.WriteLine($"Customer Json: {customerJson.ToString()}");
+                        Debug.WriteLine($"Customer Json: {customerJson.interestedProductGroups.ToString()}");
                         var customerData = new ExportData();
 
                         var address = new Address() {
@@ -61,7 +61,9 @@ namespace FairDataGetter.Client
                             Email = customerJson.email,
                             Address = address,
                             IsCorporateCustomer = customerJson.companyId != null,
-                            InterestedProductGroups = ((JArray)customerJson.interestedProductGroups).ToObject<List<string>>() ?? []
+                            InterestedProductGroups = customerJson.interestedProductGroups != null
+                            ? JsonConvert.DeserializeObject<List<string>>(customerJson.interestedProductGroups.ToString())
+                            : new List<string>()
                         };
 
                         if (customerJson.company != null)
