@@ -97,11 +97,11 @@ namespace FairDataGetter.Client
                 ("First Name", customer.FirstName, (1, 42)),
                 ("Last Name", customer.LastName, (1, 42)),
                 ("Email", customer.Email, (4, 42)),
-                ("Customer Address", customer.Address.Street, (3, 42)),
-                ("Customer HouseNumber", customer.Address.HouseNumber, (1, 42)),
-                ("Customer City", customer.Address.City, (2, 42)),
-                ("Customer PostalCode", customer.Address.PostalCode, (3, 42)),
-                ("Customer Country", customer.Address.Country, (3, 42))
+                ("Customer Address", customer.Address.Street, (3, 100)),
+                ("Customer HouseNumber", customer.Address.HouseNumber, (1, 16)),
+                ("Customer City", customer.Address.City, (1, 50)),
+                ("Customer PostalCode", customer.Address.PostalCode, (1, 10)),
+                ("Customer Country", customer.Address.Country, (1, 50))
             };
 
             // Validate Textboxes not empty and within length requirment of api
@@ -134,11 +134,11 @@ namespace FairDataGetter.Client
                 fieldsToValidate = new List<(string fieldName, string fieldContent, (int minLength, int maxLength) lengthRange)>
                 {
                     ("Company Name", company.Name, (2, 42)),
-                    ("Company Address", company.Address.Street, (3, 42)),
-                    ("Company HouseNumber", company.Address.HouseNumber, (1, 42)),
-                    ("Company City", company.Address.City, (2, 42)),
-                    ("Company PostalCode", company.Address.PostalCode, (3, 42)),
-                    ("Company Country", company.Address.Country, (3, 42))
+                    ("Company Address", company.Address.Street, (3, 100)),
+                    ("Company HouseNumber", company.Address.HouseNumber, (1, 16)),
+                    ("Company City", company.Address.City, (1, 50)),
+                    ("Company PostalCode", company.Address.PostalCode, (1, 10)),
+                    ("Company Country", company.Address.Country, (1, 50))
                 };
 
                 // Validate Textboxes not empty and within length requirment of api
